@@ -1,0 +1,160 @@
+---
+title: "Recordings"
+description: "Video recordings of automation sessions"
+---
+
+## Session Recordings
+
+Every execution is recorded as a video. Review past runs, audit activity, and debug issues.
+
+## Accessing Recordings
+
+<Steps>
+  <Step title="Go to Run Logs">
+    Navigate to **Run Logs** in the sidebar
+  </Step>
+
+  <Step title="Select a Run">
+    Click on any completed execution
+  </Step>
+
+  <Step title="Open Recording Tab">
+    Click the **Recording** tab
+  </Step>
+
+  <Step title="Play or Download">
+    - Watch in browser
+    - Download as MP4
+  </Step>
+</Steps>
+
+## Video Player
+
+### Controls
+
+| Control | Function |
+|---------|----------|
+| **Play/Pause** | Start/stop playback |
+| **Seek** | Jump to any point |
+| **Speed** | 0.5x, 1x, 2x playback |
+| **Full Screen** | Expand player |
+| **Download** | Save as MP4 |
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Debugging" icon="bug">
+    See exactly what went wrong
+  </Card>
+  <Card title="Training" icon="graduation-cap">
+    Show teammates how things work
+  </Card>
+  <Card title="Auditing" icon="clipboard-check">
+    Verify what was done
+  </Card>
+  <Card title="Optimization" icon="gauge-high">
+    Identify slow steps
+  </Card>
+</CardGroup>
+
+## Recording Details
+
+Each recording includes:
+
+| Metadata | Description |
+|----------|-------------|
+| **Duration** | Total length |
+| **Start time** | When execution began |
+| **End time** | When execution finished |
+| **File size** | Video file size |
+| **Resolution** | Capture resolution |
+
+## Quality
+
+Recordings are captured at:
+
+- **Resolution:** Desktop resolution (usually 1920x1080)
+- **Frame rate:** 15 fps (optimized for file size)
+- **Format:** MP4 (H.264)
+
+## Storage and Retention
+
+| Plan | Retention |
+|------|-----------|
+| Free | 7 days |
+| Pro | 30 days |
+| Enterprise | Custom |
+
+<Warning>
+  After retention expires, recordings are deleted. Download any you want to keep.
+</Warning>
+
+## Downloading Recordings
+
+Click **Download** to save the recording:
+
+- Format: MP4
+- Includes: Full session from start to finish
+- Size: Varies by duration (typically 10-50 MB per minute)
+
+## Sharing Recordings
+
+To share a recording:
+
+1. Download the MP4 file
+2. Share via your preferred method (email, Slack, etc.)
+
+<Note>
+  Direct sharing links are not available. You must download and re-upload to share.
+</Note>
+
+## Syncing with Logs
+
+The recording timestamp syncs with execution logs:
+
+1. See an issue at 2:34 in the video
+2. Check the Timeline tab for actions at that time
+3. Understand what action caused the issue
+
+## Privacy and Security
+
+Recordings are:
+
+- **Encrypted** at rest
+- **Organization-scoped** - only your team can access
+- **Access-logged** - downloads are tracked
+
+<Warning>
+  Recordings may contain sensitive information displayed on the Windows desktop. Handle accordingly.
+</Warning>
+
+## Tips
+
+<AccordionGroup>
+  <Accordion title="Watch at 2x speed">
+    Review recordings faster when debugging known issues.
+  </Accordion>
+
+  <Accordion title="Download important recordings">
+    Before retention expires, save recordings you might need.
+  </Accordion>
+
+  <Accordion title="Use with screenshots">
+    Screenshots provide snapshots; recordings show the full flow.
+  </Accordion>
+
+  <Accordion title="Check for unnecessary waits">
+    Long pauses in recordings indicate optimization opportunities.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Run Logs" icon="list" href="/dashboard/run-logs">
+    See all executions
+  </Card>
+  <Card title="Analytics" icon="chart-line" href="/dashboard/analytics">
+    Track performance
+  </Card>
+</CardGroup>

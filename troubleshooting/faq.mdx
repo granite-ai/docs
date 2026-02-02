@@ -1,0 +1,145 @@
+---
+title: "FAQ"
+description: "Frequently asked questions about Granite"
+---
+
+## General
+
+<AccordionGroup>
+  <Accordion title="What is Granite?">
+    Granite is a desktop automation platform that combines AI agents with human oversight. You can automate Windows desktop tasks, watch execution in real-time, and approve actions before they happen.
+  </Accordion>
+
+  <Accordion title="What can I automate?">
+    Anything you can do manually on a Windows desktop:
+    - Data entry into any application
+    - Report generation
+    - File management
+    - Web scraping
+    - Email processing
+    - Excel/Office automation
+    - Custom application workflows
+  </Accordion>
+
+  <Accordion title="Do I need to code?">
+    No! You can describe tasks in plain English and the AI agent figures out the steps. For more control, you can write RPA scripts in Python.
+  </Accordion>
+
+  <Accordion title="Is my data secure?">
+    Yes. All data is encrypted in transit (TLS) and at rest. Your automations run on isolated VMs. API keys and credentials are hashed.
+  </Accordion>
+</AccordionGroup>
+
+## Account & Billing
+
+<AccordionGroup>
+  <Accordion title="Is there a free tier?">
+    Yes! Free accounts include limited executions and storage. Check pricing for details.
+  </Accordion>
+
+  <Accordion title="How do I upgrade my plan?">
+    Go to Settings > Billing and select a new plan. Changes take effect immediately.
+  </Accordion>
+
+  <Accordion title="Can I have multiple organizations?">
+    Yes, one account can belong to multiple organizations. Switch between them using the org selector.
+  </Accordion>
+</AccordionGroup>
+
+## Drivers & VMs
+
+<AccordionGroup>
+  <Accordion title="Do I need my own Windows machines?">
+    No, you can use Granite's cloud VMs. But you can also connect your own machines if preferred.
+  </Accordion>
+
+  <Accordion title="What Windows versions are supported?">
+    Windows 10 and Windows 11, Pro or Enterprise editions. Home editions may work but aren't officially supported.
+  </Accordion>
+
+  <Accordion title="Can I install custom software on VMs?">
+    Yes! Use the installation VM to install any software your automations need, then create your instance template from it.
+  </Accordion>
+
+  <Accordion title="How many VMs can I have?">
+    Depends on your plan. Enterprise customers can have unlimited VMs.
+  </Accordion>
+</AccordionGroup>
+
+## Execution
+
+<AccordionGroup>
+  <Accordion title="What is HITL?">
+    Human-in-the-Loop. It means the agent pauses before important actions so you can approve, modify, or cancel them. You stay in control.
+  </Accordion>
+
+  <Accordion title="Can I run automations without watching?">
+    Yes, you can disable HITL for trusted automations. They'll run fully automated.
+  </Accordion>
+
+  <Accordion title="How long can an automation run?">
+    Default timeout is 30 minutes. Contact support for longer-running automations.
+  </Accordion>
+
+  <Accordion title="What happens if an automation fails?">
+    The execution stops, error details are logged, and you can view screenshots and recordings to debug.
+  </Accordion>
+</AccordionGroup>
+
+## API & Integration
+
+<AccordionGroup>
+  <Accordion title="Can I trigger automations from other systems?">
+    Yes! Create a public API endpoint and call it from anywhere using your API key.
+  </Accordion>
+
+  <Accordion title="Is there a TypeScript/JavaScript SDK?">
+    Yes, `@getgraniteai/ts-sdk` provides a type-safe client for the API.
+  </Accordion>
+
+  <Accordion title="What's the API rate limit?">
+    Free: 100 requests/hour
+    Pro: 1,000 requests/hour
+    Enterprise: Custom
+  </Accordion>
+
+  <Accordion title="Can I use webhooks?">
+    Webhook support is coming soon. For now, poll for status using the API.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="My automation keeps failing">
+    - Check the error message in run logs
+    - View screenshots at the failure point
+    - Watch the recording to see what happened
+    - Try with HITL enabled to step through
+  </Accordion>
+
+  <Accordion title="Video stream isn't working">
+    - Check browser allows WebRTC
+    - Disable VPN
+    - Try a different browser
+    - Verify driver is online
+  </Accordion>
+
+  <Accordion title="Driver shows offline">
+    - Check the machine is running
+    - Verify network connectivity
+    - Review driver logs for errors
+    - Try restarting the driver
+  </Accordion>
+</AccordionGroup>
+
+## Still Have Questions?
+
+<CardGroup cols={2}>
+  <Card title="Documentation" icon="book" href="/introduction">
+    Browse the full docs
+  </Card>
+  <Card title="Contact Support" icon="headset" href="mailto:support@getgranite.ai">
+    Get help from our team
+  </Card>
+</CardGroup>

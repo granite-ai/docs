@@ -1,0 +1,212 @@
+---
+title: "Driver Management"
+description: "Monitor and manage your connected driver machines"
+---
+
+## Overview
+
+The Driver Management page shows all Windows machines connected to your organization that can run automations.
+
+## Driver List
+
+Each connected driver shows:
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Machine identifier |
+| **Status** | Online, Offline, or Busy |
+| **IP Address** | Network address |
+| **Last Heartbeat** | When it last checked in |
+| **Current Job** | Active automation (if any) |
+| **Queue Depth** | Jobs waiting for this driver |
+
+## Status Indicators
+
+<CardGroup cols={3}>
+  <Card title="Online" icon="circle-check" color="#22C55E">
+    Connected and ready to accept jobs
+  </Card>
+  <Card title="Busy" icon="spinner" color="#F59E0B">
+    Currently executing an automation
+  </Card>
+  <Card title="Offline" icon="circle-xmark" color="#6B7280">
+    Not connected to the backend
+  </Card>
+</CardGroup>
+
+## Driver Details
+
+Click any driver to see detailed information:
+
+<Tabs>
+  <Tab title="Overview">
+    - Machine name and ID
+    - Operating system version
+    - IP address and port
+    - Connection status
+    - Uptime
+  </Tab>
+
+  <Tab title="Capabilities">
+    - Installed applications
+    - Screen resolution
+    - Available resources (CPU, RAM)
+  </Tab>
+
+  <Tab title="Job History">
+    - Recent executions on this machine
+    - Success/failure rates
+    - Average execution time
+  </Tab>
+
+  <Tab title="Settings">
+    - RDP credentials (for management)
+    - Priority settings
+    - Enable/disable
+  </Tab>
+</Tabs>
+
+## Queue Status
+
+See the overall job queue:
+
+| Metric | Description |
+|--------|-------------|
+| **Total Queued** | Jobs waiting for any driver |
+| **Avg Wait Time** | How long jobs typically wait |
+| **Active Jobs** | Currently executing |
+
+<Tip>
+  If the queue is backing up, consider adding more driver machines.
+</Tip>
+
+## Job Assignment
+
+Jobs are assigned to drivers based on:
+
+1. **Availability** - Is the driver online and not busy?
+2. **Capabilities** - Does it have required software?
+3. **Priority** - Higher priority drivers get jobs first
+4. **Round-robin** - Distribute load evenly
+
+## Adding New Drivers
+
+To add a new driver machine:
+
+<Steps>
+  <Step title="Create Enrollment Token">
+    Go to [API Management](/dashboard/api-management) and create a token
+  </Step>
+
+  <Step title="Install Driver Software">
+    On the Windows machine, install the Granite driver
+  </Step>
+
+  <Step title="Run Enrollment">
+    Use the token to register the machine
+  </Step>
+
+  <Step title="Verify Connection">
+    Check this page to confirm it appears as Online
+  </Step>
+</Steps>
+
+See the [Driver Installation Guide](/driver/installation) for detailed steps.
+
+## Removing Drivers
+
+To remove a driver from your organization:
+
+1. Click the driver in the list
+2. Go to Settings tab
+3. Click **Remove Machine**
+4. Confirm removal
+
+<Warning>
+  Removed machines can't run automations until re-enrolled with a new token.
+</Warning>
+
+## Troubleshooting Offline Drivers
+
+If a driver shows as offline:
+
+<AccordionGroup>
+  <Accordion title="Check network connectivity">
+    Can the machine reach `api.getgranite.ai`?
+
+    ```powershell
+    Test-NetConnection -ComputerName api.getgranite.ai -Port 443
+    ```
+  </Accordion>
+
+  <Accordion title="Verify driver is running">
+    Is the driver process still active?
+
+    ```powershell
+    Get-Process granite-driver -ErrorAction SilentlyContinue
+    ```
+  </Accordion>
+
+  <Accordion title="Check logs">
+    Review driver logs for errors:
+
+    ```powershell
+    Get-Content C:\granite\driver\logs\latest.log -Tail 50
+    ```
+  </Accordion>
+
+  <Accordion title="Restart the driver">
+    Stop and start the driver service:
+
+    ```powershell
+    Stop-Process -Name granite-driver -Force
+    Start-Process C:\granite\driver\granite-driver.exe
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Monitoring Best Practices
+
+<AccordionGroup>
+  <Accordion title="Set up alerts">
+    Get notified when drivers go offline unexpectedly.
+  </Accordion>
+
+  <Accordion title="Monitor queue depth">
+    If queues grow consistently, add more drivers.
+  </Accordion>
+
+  <Accordion title="Review job history">
+    Look for patterns in failures on specific machines.
+  </Accordion>
+
+  <Accordion title="Keep drivers updated">
+    Run the latest driver version for best compatibility.
+  </Accordion>
+</AccordionGroup>
+
+## Scaling Drivers
+
+When to add more drivers:
+
+- Queue wait times exceed acceptable limits
+- You're running more concurrent automations
+- You need geographic distribution
+- You want redundancy
+
+When to remove drivers:
+
+- Reducing costs
+- Consolidating infrastructure
+- Decommissioning old machines
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Driver Installation" icon="download" href="/driver/installation">
+    Set up a new driver
+  </Card>
+  <Card title="VM Management" icon="cloud" href="/vm-management/overview">
+    Learn about VM options
+  </Card>
+</CardGroup>

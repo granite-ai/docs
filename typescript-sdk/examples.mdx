@@ -1,0 +1,234 @@
+---
+title: "SDK Examples"
+description: "Common usage patterns for the Granite TypeScript SDK"
+---
+
+## Authentication
+
+### Get Current User
+
+```typescript
+import { client } from '@getgraniteai/ts-sdk';
+
+const user = await client.getCurrentUser();
+console.log(`Logged in as: ${user.email}`);
+console.log(`Organization: ${user.organization_name}`);
+```
+
+### List Organizations
+
+```typescript
+const orgs = await client.listOrganizations();
+for (const org of orgs) {
+  console.log(`${org.name} (${org.slug})`);
+}
+```
+
+## Processes
+
+### List All Processes
+
+```typescript
+const jobs = await client.listWorkflowJobs();
+for (const job of jobs) {
+  console.log(`${job.name} - ${job.status}`);
+}
+```
+
+### Get Process Details
+
+```typescript
+const job = await client.getWorkflowJob({
+  jobId: 'job_abc123',
+});
+console.log(job.name);
+console.log(job.description);
+```
+
+## Running Automations
+
+### Trigger via API Endpoint
+
+```typescript
+// Using the public endpoint invocation
+const result = await client.invokeOrgEndpoint({
+  orgIdentifier: 'your-org',
+  slug: 'your-endpoint',
+  body: {
+    param1: 'value1',
+    param2: 'value2',
+  },
+});
+
+console.log(`Run ID: ${result.runId}`);
+console.log(`Status: ${result.status}`);
+```
+
+### Check Run Status
+
+```typescript
+const run = await client.getAgentRun({
+  runId: 'run_abc123',
+});
+
+console.log(`Status: ${run.status}`);
+console.log(`Duration: ${run.duration}ms`);
+```
+
+### List Recent Runs
+
+```typescript
+const runs = await client.listAgentRuns({
+  limit: 10,
+  offset: 0,
+});
+
+for (const run of runs.items) {
+  console.log(`${run.id} - ${run.status} - ${run.created_at}`);
+}
+```
+
+## API Keys
+
+### Create API Key
+
+```typescript
+const key = await client.createApiKey({
+  organizationId: 'org_123',
+  name: 'Production Backend',
+});
+
+// Save this immediately - only shown once!
+console.log(`API Key: ${key.key}`);
+```
+
+### List API Keys
+
+```typescript
+const keys = await client.listApiKeys({
+  organizationId: 'org_123',
+});
+
+for (const key of keys) {
+  console.log(`${key.name} - Created: ${key.created_at}`);
+}
+```
+
+### Revoke API Key
+
+```typescript
+await client.revokeApiKey({
+  organizationId: 'org_123',
+  keyId: 'key_abc',
+});
+console.log('Key revoked');
+```
+
+## Analytics
+
+### Get Batched Analytics
+
+```typescript
+const analytics = await client.getBatchedAnalytics({
+  timeRange: '7d',
+  granularity: 'daily',
+});
+
+console.log(`Total executions: ${analytics.summary.total_executions}`);
+console.log(`Success rate: ${analytics.summary.success_rate}%`);
+```
+
+### Get Executions Over Time
+
+```typescript
+const data = await client.getExecutionsOverTime({
+  timeRange: '30d',
+  granularity: 'daily',
+});
+
+for (const point of data.data) {
+  console.log(`${point.date}: ${point.count} executions`);
+}
+```
+
+## Team Management
+
+### Invite Member
+
+```typescript
+await client.inviteMember({
+  organizationId: 'org_123',
+  email: 'colleague@company.com',
+  role: 'member',
+});
+console.log('Invitation sent');
+```
+
+### Update Member Role
+
+```typescript
+await client.updateMemberRole({
+  organizationId: 'org_123',
+  memberId: 'mem_456',
+  role: 'admin',
+});
+```
+
+## Error Handling Pattern
+
+```typescript
+async function safeApiCall<T>(
+  operation: () => Promise<T>
+): Promise<T | null> {
+  try {
+    return await operation();
+  } catch (error) {
+    if (error.status === 401) {
+      // Handle unauthorized - redirect to login
+      window.location.href = '/login';
+    } else if (error.status === 429) {
+      // Handle rate limit - wait and retry
+      await new Promise(r => setTimeout(r, 5000));
+      return safeApiCall(operation);
+    } else {
+      console.error('API Error:', error.message);
+    }
+    return null;
+  }
+}
+
+// Usage
+const user = await safeApiCall(() => client.getCurrentUser());
+```
+
+## Polling Pattern
+
+```typescript
+async function waitForCompletion(runId: string): Promise<AgentRun> {
+  while (true) {
+    const run = await client.getAgentRun({ runId });
+
+    if (['completed', 'failed', 'cancelled'].includes(run.status)) {
+      return run;
+    }
+
+    // Wait 2 seconds before checking again
+    await new Promise(r => setTimeout(r, 2000));
+  }
+}
+
+// Usage
+const result = await waitForCompletion('run_abc123');
+console.log(`Final status: ${result.status}`);
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="book" href="/api-reference/overview">
+    Full endpoint documentation
+  </Card>
+  <Card title="Public API" icon="globe" href="/public-api/overview">
+    External API integration
+  </Card>
+</CardGroup>

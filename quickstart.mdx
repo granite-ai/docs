@@ -1,0 +1,157 @@
+---
+title: "Quickstart"
+description: "Get your first automation running in 5 minutes"
+---
+
+<Info>
+  You'll need a Granite account to follow along. [Sign up free](https://app.getgranite.ai) if you haven't already.
+</Info>
+
+## What You'll Build
+
+By the end of this guide, you'll have:
+- Created a process in Granite
+- Run an AI agent to execute a task
+- Watched the execution in real-time with HITL controls
+
+## Prerequisites
+
+- A Granite account
+- Chrome or Firefox browser
+- 5 minutes
+
+## Step 1: Log In
+
+<Steps>
+  <Step title="Open Granite">
+    Navigate to [app.getgranite.ai](https://app.getgranite.ai)
+  </Step>
+  <Step title="Enter Your Email">
+    Type your email address and click **Continue**
+  </Step>
+  <Step title="Check Your Inbox">
+    Click the magic link in your email to sign in
+
+    <Tip>
+      You can also use **Sign in with Google** for faster access.
+    </Tip>
+  </Step>
+</Steps>
+
+## Step 2: Create Your First Process
+
+<Steps>
+  <Step title="Go to Processes">
+    Click **Processes** in the sidebar
+
+    <Frame>
+      <img src="/images/dashboard/processes.png" alt="Processes page" />
+    </Frame>
+  </Step>
+  <Step title="Create New Process">
+    Click the **+ New Process** button
+  </Step>
+  <Step title="Name Your Process">
+    Enter a descriptive name like "Open Notepad and Type Hello"
+  </Step>
+  <Step title="Describe the Task">
+    In the description field, explain what you want to automate:
+
+    ```
+    Open Notepad on Windows, type "Hello from Granite!",
+    and save the file as hello.txt on the Desktop
+    ```
+  </Step>
+</Steps>
+
+## Step 3: Run the Agent
+
+<Steps>
+  <Step title="Click Run">
+    Hit the **Run** button to start the agent execution
+  </Step>
+  <Step title="Watch Live">
+    You'll see a live video stream of the Windows desktop
+  </Step>
+  <Step title="Review Actions">
+    The chat panel shows each action the agent takes:
+    - Opening applications
+    - Clicking elements
+    - Typing text
+    - Saving files
+  </Step>
+</Steps>
+
+## Step 4: Use HITL Controls
+
+During execution, you have full control:
+
+<CardGroup cols={2}>
+  <Card title="Approve" icon="check">
+    Let the current action proceed
+  </Card>
+  <Card title="Modify" icon="pencil">
+    Change the action before it executes
+  </Card>
+  <Card title="Skip" icon="forward">
+    Skip the current action
+  </Card>
+  <Card title="Cancel" icon="xmark">
+    Stop the entire execution
+  </Card>
+</CardGroup>
+
+<Warning>
+  HITL mode pauses execution for your approval on sensitive actions. This keeps you in control of what happens on the target machine.
+</Warning>
+
+## Step 5: View Results
+
+After execution completes:
+
+1. Check **Run Logs** to see the full execution history
+2. View **screenshots** captured during the run
+3. Download the **recording** for review
+
+<Frame>
+  <img src="/images/dashboard/run-logs.png" alt="Run logs page" />
+</Frame>
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Create RPA Scripts" icon="code" href="/rpa-automation/overview">
+    Build repeatable automations with Python
+  </Card>
+  <Card title="Set Up API Endpoints" icon="globe" href="/public-api/overview">
+    Trigger automations from external systems
+  </Card>
+  <Card title="Learn HITL" icon="hand" href="/agent-execution/hitl-workflows">
+    Master human-in-the-loop workflows
+  </Card>
+  <Card title="Explore Analytics" icon="chart-line" href="/dashboard/analytics">
+    Track your automation performance
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I didn't receive the magic link email">
+    - Check your spam/junk folder
+    - Make sure you entered the correct email
+    - Try again or use Google OAuth instead
+  </Accordion>
+
+  <Accordion title="The agent isn't executing">
+    - Ensure you have at least one driver machine connected
+    - Check the **Driver Management** page for machine status
+    - Verify the driver is online (green status)
+  </Accordion>
+
+  <Accordion title="Video stream isn't loading">
+    - Check your browser allows WebRTC connections
+    - Try refreshing the page
+    - Ensure you're not behind a restrictive firewall
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,178 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Granite",
+  "logo": {
+    "dark": "/logo/granite-dark.svg",
+    "light": "/logo/granite-light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#6366F1",
+    "light": "#818CF8",
+    "dark": "#4F46E5"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@getgranite.ai"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.getgranite.ai"
+  },
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/getgraniteai"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/granite"
+    }
+  ],
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "architecture"
+            ]
+          },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "getting-started/overview",
+              "getting-started/sign-up",
+              "getting-started/your-first-automation",
+              "getting-started/concepts"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "dashboard/overview",
+              "dashboard/processes",
+              "dashboard/agent-run",
+              "dashboard/run-logs",
+              "dashboard/analytics",
+              "dashboard/api-endpoints",
+              "dashboard/api-management",
+              "dashboard/driver-management",
+              "dashboard/members",
+              "dashboard/settings"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "authentication/overview",
+              "authentication/magic-link",
+              "authentication/oauth",
+              "authentication/organizations"
+            ]
+          },
+          {
+            "group": "Agent Execution",
+            "pages": [
+              "agent-execution/overview",
+              "agent-execution/hitl-workflows",
+              "agent-execution/live-video",
+              "agent-execution/recordings"
+            ]
+          },
+          {
+            "group": "RPA Automation",
+            "pages": [
+              "rpa-automation/overview",
+              "rpa-automation/creating-scripts",
+              "rpa-automation/script-template"
+            ]
+          },
+          {
+            "group": "Public API",
+            "pages": [
+              "public-api/overview",
+              "public-api/creating-endpoints",
+              "public-api/api-keys",
+              "public-api/invoking-automations"
+            ]
+          },
+          {
+            "group": "VM Management",
+            "pages": [
+              "vm-management/overview",
+              "vm-management/local-sandbox-setup",
+              "vm-management/gcp-mig"
+            ]
+          },
+          {
+            "group": "Driver",
+            "pages": [
+              "driver/overview",
+              "driver/installation",
+              "driver/enrollment",
+              "driver/troubleshooting"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "troubleshooting/common-errors",
+              "troubleshooting/faq"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": [
+              "api-reference/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDK",
+        "groups": [
+          {
+            "group": "TypeScript SDK",
+            "pages": [
+              "typescript-sdk/overview",
+              "typescript-sdk/installation",
+              "typescript-sdk/examples"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "openapi": "/api-reference/openapi.json",
+  "api": {
+    "baseUrl": "https://api.getgranite.ai",
+    "auth": {
+      "method": "key",
+      "name": "X-Granite-API-Key"
+    }
+  },
+  "footerSocials": {
+    "twitter": "https://twitter.com/getgraniteai",
+    "github": "https://github.com/getgraniteai",
+    "linkedin": "https://linkedin.com/company/granite-ai"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  }
+}

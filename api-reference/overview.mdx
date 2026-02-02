@@ -1,0 +1,202 @@
+---
+title: "API Reference"
+description: "Complete reference for the Granite API"
+---
+
+## Overview
+
+The Granite API provides programmatic access to all platform features. It's a RESTful API with JSON request/response bodies.
+
+## Base URL
+
+```
+https://api.getgranite.ai
+```
+
+For local development:
+```
+http://localhost:8000
+```
+
+## Authentication
+
+<Tabs>
+  <Tab title="API Key">
+    For server-to-server communication:
+
+    ```bash
+    curl -X GET "https://api.getgranite.ai/api/me" \
+      -H "X-Granite-API-Key: gk_live_abc123..."
+    ```
+  </Tab>
+
+  <Tab title="Session Cookie">
+    For browser-based access after login:
+
+    ```javascript
+    fetch('https://api.getgranite.ai/api/me', {
+      credentials: 'include'
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## API Categories
+
+The API is organized into these categories:
+
+| Category | Description | Endpoints |
+|----------|-------------|-----------|
+| **Authentication** | User login, logout, sessions | 7 |
+| **Organizations** | Org management, members | 7 |
+| **Agent** | Agent execution, runs | 8 |
+| **Automations** | Workflow jobs, processes | 7 |
+| **RPA** | RPA execution | 5 |
+| **Analytics** | Metrics and dashboards | 15 |
+| **API Management** | Keys, endpoints | 10 |
+| **Drivers** | Machine management | 6 |
+| **VM Management** | MIG, installation VMs | 16 |
+
+Total: **110+ endpoints**
+
+## Request Format
+
+All requests should include:
+
+```bash
+-H "Content-Type: application/json"
+```
+
+Request bodies are JSON:
+
+```json
+{
+  "name": "My Process",
+  "description": "Does something useful"
+}
+```
+
+## Response Format
+
+Successful responses return JSON:
+
+```json
+{
+  "id": "job_abc123",
+  "name": "My Process",
+  "status": "ready",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+Error responses include:
+
+```json
+{
+  "error": "not_found",
+  "message": "Resource not found",
+  "code": 404
+}
+```
+
+## Status Codes
+
+| Code | Meaning |
+|------|---------|
+| `200` | Success |
+| `201` | Created |
+| `400` | Bad request |
+| `401` | Unauthorized |
+| `403` | Forbidden |
+| `404` | Not found |
+| `429` | Rate limited |
+| `500` | Server error |
+
+## Rate Limits
+
+| Plan | Limit |
+|------|-------|
+| Free | 100 requests/hour |
+| Pro | 1,000 requests/hour |
+| Enterprise | Custom |
+
+Rate limit headers:
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1705320000
+```
+
+## Pagination
+
+List endpoints support pagination:
+
+```bash
+GET /api/agent/runs?limit=20&offset=40
+```
+
+Response includes pagination info:
+
+```json
+{
+  "items": [...],
+  "total": 150,
+  "limit": 20,
+  "offset": 40
+}
+```
+
+## Streaming Endpoints
+
+Some endpoints return Server-Sent Events (SSE):
+
+- `GET /api/agent/run` - Agent execution stream
+- `GET /api/rpa/run` - RPA execution stream
+
+```javascript
+const eventSource = new EventSource(
+  'https://api.getgranite.ai/api/agent/run?prompt=...',
+  { withCredentials: true }
+);
+
+eventSource.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log(data);
+};
+```
+
+## WebSocket Endpoints
+
+Real-time communication:
+
+- `wss://api.getgranite.ai/ws/driver` - Driver connection
+- `wss://api.getgranite.ai/api/frontend-ws` - Frontend updates
+
+## OpenAPI Specification
+
+The complete API specification is available:
+
+- **Swagger UI:** `https://api.getgranite.ai/docs`
+- **ReDoc:** `https://api.getgranite.ai/redoc`
+- **OpenAPI JSON:** `https://api.getgranite.ai/openapi.json`
+
+## SDK
+
+Use our TypeScript SDK for easier integration:
+
+```typescript
+import { client } from '@getgraniteai/ts-sdk';
+
+client.setConfig({
+  baseUrl: 'https://api.getgranite.ai',
+  headers: { 'X-Granite-API-Key': 'your-key' },
+});
+
+const user = await client.getCurrentUser();
+```
+
+See [TypeScript SDK](/typescript-sdk/overview) for details.
+
+## Explore the API
+
+Browse endpoints by category in the sidebar, or use the interactive API playground.

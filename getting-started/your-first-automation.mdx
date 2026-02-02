@@ -1,0 +1,188 @@
+---
+title: "Your First Automation"
+description: "Create and run an automation in 5 minutes"
+---
+
+## What You'll Build
+
+In this tutorial, you'll:
+1. Create a simple process
+2. Run it with an AI agent
+3. Use HITL controls to oversee execution
+4. View the results
+
+<Info>
+  **Prerequisites:**
+  - A Granite account ([sign up](/getting-started/sign-up))
+  - At least one driver machine connected (or use a shared demo driver)
+</Info>
+
+## Step 1: Navigate to Processes
+
+<Steps>
+  <Step title="Open the Dashboard">
+    Log into [app.getgranite.ai](https://app.getgranite.ai)
+  </Step>
+
+  <Step title="Click Processes">
+    In the left sidebar, click **Processes**
+  </Step>
+</Steps>
+
+## Step 2: Create a New Process
+
+<Steps>
+  <Step title="Click New Process">
+    Click the **+ New Process** button in the top right
+  </Step>
+
+  <Step title="Enter Process Details">
+    Fill in the form:
+
+    | Field | Example Value |
+    |-------|---------------|
+    | **Name** | Open Calculator |
+    | **Description** | Open the Windows Calculator app and perform a simple calculation |
+  </Step>
+
+  <Step title="Save the Process">
+    Click **Create** to save your process
+  </Step>
+</Steps>
+
+## Step 3: Run the Agent
+
+<Steps>
+  <Step title="Click Run">
+    On your new process page, click the **Run** button
+  </Step>
+
+  <Step title="Wait for Driver Assignment">
+    Granite will:
+    1. Find an available driver machine
+    2. Connect to the Windows desktop
+    3. Start streaming video to your browser
+  </Step>
+
+  <Step title="Watch the Execution">
+    You'll see:
+    - **Live video** of the Windows desktop
+    - **Chat panel** showing each action
+    - **HITL controls** for approving actions
+  </Step>
+</Steps>
+
+## Step 4: Use HITL Controls
+
+During execution, the agent may pause for your approval:
+
+<CardGroup cols={2}>
+  <Card title="Approve" icon="check" color="#22C55E">
+    Let the action proceed as planned
+  </Card>
+  <Card title="Modify" icon="pencil" color="#F59E0B">
+    Change what the agent will do
+  </Card>
+  <Card title="Skip" icon="forward" color="#6366F1">
+    Skip this action and continue
+  </Card>
+  <Card title="Cancel" icon="xmark" color="#EF4444">
+    Stop the entire execution
+  </Card>
+</CardGroup>
+
+### Example HITL Interaction
+
+```
+Agent: I'm about to click the Calculator icon on the taskbar.
+       [Approve] [Modify] [Skip] [Cancel]
+
+You: Click [Approve]
+
+Agent: Calculator is now open. I'll type 2+2 and press Enter.
+       [Approve] [Modify] [Skip] [Cancel]
+
+You: Click [Approve]
+
+Agent: The result is 4. Task complete!
+```
+
+## Step 5: View Results
+
+After execution completes:
+
+<Tabs>
+  <Tab title="Execution Summary">
+    See the outcome:
+    - **Status**: Success, Failed, or Cancelled
+    - **Duration**: How long it took
+    - **Actions**: Number of steps executed
+  </Tab>
+
+  <Tab title="Screenshots">
+    Browse screenshots captured during execution:
+    - Before/after each action
+    - Error states (if any)
+    - Final result
+  </Tab>
+
+  <Tab title="Recording">
+    Download or watch the full video recording of the session
+  </Tab>
+
+  <Tab title="Logs">
+    Detailed trace of everything that happened:
+    - Timestamps
+    - Action descriptions
+    - System responses
+  </Tab>
+</Tabs>
+
+## Congratulations!
+
+You've just run your first Granite automation. Here's what you learned:
+
+- Creating a process with a description
+- Running an AI agent to execute it
+- Using HITL controls for oversight
+- Viewing execution results
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Learn Key Concepts" icon="book" href="/getting-started/concepts">
+    Understand HITL, RPA, and more
+  </Card>
+  <Card title="Create RPA Scripts" icon="code" href="/rpa-automation/overview">
+    Build repeatable automations
+  </Card>
+  <Card title="Set Up API Endpoints" icon="globe" href="/public-api/overview">
+    Trigger automations externally
+  </Card>
+  <Card title="Connect Your Own Driver" icon="desktop" href="/driver/installation">
+    Use your own Windows machine
+  </Card>
+</CardGroup>
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="No driver machines available">
+    You need at least one connected driver. Options:
+    - Set up a [local driver](/vm-management/local-sandbox-setup)
+    - Use [GCP managed VMs](/vm-management/gcp-mig)
+    - Contact support for demo access
+  </Accordion>
+
+  <Accordion title="Agent seems stuck">
+    - Check if it's waiting for HITL approval
+    - The video stream shows what's happening
+    - Use **Cancel** if needed and try again
+  </Accordion>
+
+  <Accordion title="Action failed">
+    - Review the error in the chat panel
+    - Check screenshots for visual context
+    - Try a more specific description
+  </Accordion>
+</AccordionGroup>

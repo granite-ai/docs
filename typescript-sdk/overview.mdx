@@ -1,0 +1,77 @@
+---
+title: "TypeScript SDK Overview"
+description: "Official TypeScript client for the Granite API"
+---
+
+## What is the SDK?
+
+The `@getgraniteai/ts-sdk` package provides a type-safe client for the Granite API. It's auto-generated from our OpenAPI specification.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Type Safety" icon="shield-check">
+    Full TypeScript types for all requests and responses
+  </Card>
+  <Card title="Auto-Generated" icon="rotate">
+    Always in sync with the latest API
+  </Card>
+  <Card title="All Endpoints" icon="code">
+    Access to 110+ API operations
+  </Card>
+  <Card title="Zero Dependencies" icon="feather">
+    Lightweight, just fetch-based
+  </Card>
+</CardGroup>
+
+## Quick Start
+
+```typescript
+import { client } from '@getgraniteai/ts-sdk';
+
+// Configure the client
+client.setConfig({
+  baseUrl: 'https://api.getgranite.ai',
+  credentials: 'include', // For cookie auth
+});
+
+// Or with API key
+client.setConfig({
+  baseUrl: 'https://api.getgranite.ai',
+  headers: {
+    'X-Granite-API-Key': process.env.GRANITE_API_KEY,
+  },
+});
+
+// Use the API
+const user = await client.getCurrentUser();
+console.log(user.email);
+```
+
+## Available Operations
+
+The SDK exposes all Granite API operations:
+
+| Category | Examples |
+|----------|----------|
+| **Auth** | `loginUser`, `getCurrentUser`, `logoutUser` |
+| **Organizations** | `createOrganization`, `listOrganizations` |
+| **Processes** | `listWorkflowJobs`, `getWorkflowJob` |
+| **Agent Runs** | `runAgent`, `listAgentRuns`, `cancelAgentRun` |
+| **API Keys** | `createApiKey`, `listApiKeys`, `revokeApiKey` |
+| **Analytics** | `getBatchedAnalytics`, `getSuccessRate` |
+| **Drivers** | `listMachines`, `registerMachine` |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/typescript-sdk/installation">
+    Install the SDK
+  </Card>
+  <Card title="Examples" icon="code" href="/typescript-sdk/examples">
+    Code examples
+  </Card>
+  <Card title="API Reference" icon="book" href="/api-reference/overview">
+    Full API docs
+  </Card>
+</CardGroup>

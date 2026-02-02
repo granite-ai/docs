@@ -1,0 +1,173 @@
+---
+title: "GCP Managed Instance Groups"
+description: "Set up cloud-managed driver VMs on Google Cloud"
+---
+
+## What is GCP MIG?
+
+A Managed Instance Group (MIG) automatically manages a pool of identical VMs. Granite uses MIG to:
+
+- Auto-scale based on demand
+- Replace unhealthy instances
+- Provide consistent VM configuration
+
+## Setup Overview
+
+<Steps>
+  <Step title="Create Installation VM">
+    A temporary VM for initial setup
+  </Step>
+
+  <Step title="Configure the VM">
+    Install driver and required software
+  </Step>
+
+  <Step title="Create Machine Image">
+    Snapshot the configured VM
+  </Step>
+
+  <Step title="Create MIG">
+    Auto-managed pool from the image
+  </Step>
+</Steps>
+
+## Creating an Installation VM
+
+From the dashboard:
+
+<Steps>
+  <Step title="Go to Settings">
+    Navigate to **Settings** in the sidebar
+  </Step>
+
+  <Step title="Click Create Installation VM">
+    In the VM section, click **Create Installation VM**
+  </Step>
+
+  <Step title="Select Machine Type">
+    Choose Small, Medium, or Heavy based on your needs
+  </Step>
+
+  <Step title="Wait for Provisioning">
+    Takes 5-10 minutes to create and configure
+  </Step>
+</Steps>
+
+## Configuring the Installation VM
+
+Once the VM is ready:
+
+<Steps>
+  <Step title="Connect via VNC">
+    The dashboard shows a VNC viewer to access the VM
+  </Step>
+
+  <Step title="Install Required Software">
+    Install any applications your automations need:
+    - Microsoft Office
+    - Custom applications
+    - Browser extensions
+  </Step>
+
+  <Step title="Configure Settings">
+    - Set screen resolution
+    - Configure application defaults
+    - Disable unnecessary services
+  </Step>
+
+  <Step title="Test the Driver">
+    Run a test automation to verify everything works
+  </Step>
+</Steps>
+
+## Finalizing the Setup
+
+When configuration is complete:
+
+<Steps>
+  <Step title="Click Finalize">
+    In the VM section, click **Finalize Installation**
+  </Step>
+
+  <Step title="Create Machine Image">
+    Granite snapshots your configured VM
+  </Step>
+
+  <Step title="Create MIG">
+    A managed instance group is created from the image
+  </Step>
+
+  <Step title="VMs Start">
+    Instances spin up automatically
+  </Step>
+</Steps>
+
+## Managing MIG Instances
+
+After setup, manage instances from **Driver Management**:
+
+| Action | Description |
+|--------|-------------|
+| **Scale Up** | Add more instances |
+| **Scale Down** | Remove instances |
+| **Sync** | Refresh from GCP |
+| **Suspend** | Pause instances |
+| **Resume** | Restart suspended instances |
+
+## Costs
+
+MIG instances incur GCP compute charges:
+
+| Type | Approx. Cost/Hour |
+|------|-------------------|
+| Small | ~$0.05 |
+| Medium | ~$0.10 |
+| Heavy | ~$0.20 |
+
+<Tip>
+  Suspend instances when not in use to reduce costs.
+</Tip>
+
+## Updating the MIG
+
+To update software on all instances:
+
+1. Create a new installation VM
+2. Make changes
+3. Finalize to create new image
+4. Update MIG to use new template
+
+Existing instances are gradually replaced.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Installation VM won't start">
+    - Check GCP quota limits
+    - Verify billing is enabled
+    - Contact support
+  </Accordion>
+
+  <Accordion title="VNC won't connect">
+    - Wait for VM to fully boot
+    - Refresh the page
+    - Check browser console for errors
+  </Accordion>
+
+  <Accordion title="MIG instances not appearing">
+    - Click Sync to refresh from GCP
+    - Check GCP console for errors
+    - Verify instance template exists
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Driver Management" icon="server" href="/dashboard/driver-management">
+    Monitor your VMs
+  </Card>
+  <Card title="Local Setup" icon="computer" href="/vm-management/local-sandbox-setup">
+    Alternative: local VMs
+  </Card>
+</CardGroup>

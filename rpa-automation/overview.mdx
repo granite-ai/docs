@@ -1,0 +1,136 @@
+---
+title: "RPA Automation Overview"
+description: "Create reliable, repeatable desktop automations with scripts"
+---
+
+## What is RPA?
+
+RPA (Robotic Process Automation) lets you define exact steps for automation in code. Unlike AI agents that interpret tasks, RPA scripts are deterministic and repeatable.
+
+## When to Use RPA
+
+<CardGroup cols={2}>
+  <Card title="Use RPA When" icon="check">
+    - Task is well-defined
+    - Steps are always the same
+    - High reliability needed
+    - Running unattended
+  </Card>
+
+  <Card title="Use AI Agent When" icon="robot">
+    - Task varies each time
+    - Exploring new workflows
+    - Natural language is easier
+    - One-off tasks
+  </Card>
+</CardGroup>
+
+## Technology Stack
+
+Granite uses [Robocorp](https://robocorp.com/) for RPA:
+
+- **Python-based** - Write scripts in Python
+- **Proven framework** - Enterprise-grade reliability
+- **Rich libraries** - Browser, Excel, PDF, and more
+- **Cross-application** - Automate any Windows app
+
+## Basic Example
+
+```python
+from robocorp.tasks import task
+from robocorp import browser
+
+@task
+def fill_expense_form():
+    # Open browser
+    browser.goto("https://expenses.company.com")
+
+    # Fill form
+    browser.fill("#amount", "150.00")
+    browser.fill("#description", "Team lunch")
+    browser.select("#category", "Meals")
+
+    # Submit
+    browser.click("button[type=submit]")
+
+    # Verify success
+    browser.wait_for_text("Expense submitted")
+```
+
+## Key Capabilities
+
+<Tabs>
+  <Tab title="Browser">
+    - Navigate to URLs
+    - Fill forms
+    - Click elements
+    - Extract data
+    - Handle popups
+  </Tab>
+
+  <Tab title="Desktop">
+    - Click UI elements
+    - Type text
+    - Handle dialogs
+    - Launch applications
+    - Window management
+  </Tab>
+
+  <Tab title="Excel">
+    - Read/write cells
+    - Create workbooks
+    - Format data
+    - Charts and formulas
+    - Pivot tables
+  </Tab>
+
+  <Tab title="Files">
+    - Read/write files
+    - PDF extraction
+    - Image processing
+    - File management
+    - ZIP handling
+  </Tab>
+</Tabs>
+
+## RPA vs. AI Agent Comparison
+
+| Aspect | RPA Script | AI Agent |
+|--------|------------|----------|
+| **Definition** | Code | Natural language |
+| **Execution** | Deterministic | Adaptive |
+| **Setup time** | Higher | Lower |
+| **Reliability** | Higher | Variable |
+| **Flexibility** | Lower | Higher |
+| **Best for** | Production | Exploration |
+
+## Getting Started
+
+<Steps>
+  <Step title="Understand the Task">
+    Map out each step manually first
+  </Step>
+
+  <Step title="Write the Script">
+    Translate steps into RPA code
+  </Step>
+
+  <Step title="Test with HITL">
+    Run with human oversight to verify
+  </Step>
+
+  <Step title="Deploy">
+    Run unattended once reliable
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Creating Scripts" icon="code" href="/rpa-automation/creating-scripts">
+    Write your first script
+  </Card>
+  <Card title="Script Template" icon="file-code" href="/rpa-automation/script-template">
+    Standard script structure
+  </Card>
+</CardGroup>

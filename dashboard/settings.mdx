@@ -1,0 +1,187 @@
+---
+title: "Settings"
+description: "Configure your organization settings"
+---
+
+## Organization Settings
+
+The Settings page lets you configure organization-wide options.
+
+## General Settings
+
+### Organization Info
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Your organization's display name |
+| **Slug** | URL-safe identifier (used in API endpoints) |
+| **Created** | When the org was created |
+
+<Note>
+  The organization slug cannot be changed after creation. It's used in API URLs.
+</Note>
+
+### Machine Type
+
+Configure the default VM configuration:
+
+| Type | Specs | Best For |
+|------|-------|----------|
+| **Small** | 2 vCPU, 4GB RAM | Simple tasks |
+| **Medium** | 4 vCPU, 8GB RAM | Most automations |
+| **Heavy** | 8 vCPU, 16GB RAM | Complex workloads |
+
+<Tip>
+  Start with Small and upgrade if automations are slow or failing due to resource constraints.
+</Tip>
+
+## Danger Zone
+
+<Warning>
+  Actions in this section are destructive and cannot be undone.
+</Warning>
+
+### Delete Installation VM
+
+If you have a cloud installation VM:
+
+1. Click **Delete Installation VM**
+2. Confirm the action
+3. The VM will be terminated
+
+This releases cloud resources but means you'll need to set up a new VM if you want cloud execution.
+
+### Clear All Logs
+
+Remove all execution history:
+
+1. Click **Clear Logs**
+2. Confirm by typing your organization name
+3. All run logs, screenshots, and recordings are deleted
+
+<Warning>
+  This is permanent. Export any logs you need before clearing.
+</Warning>
+
+### Delete All Automations
+
+Remove all processes and related data:
+
+1. Click **Delete All Automations**
+2. Confirm by typing your organization name
+3. All processes, endpoints, and execution data are deleted
+
+### Delete Organization
+
+Permanently delete your organization:
+
+1. Click **Delete Organization**
+2. Confirm by typing your organization name
+3. Everything is deleted:
+   - All processes
+   - All members
+   - All API keys
+   - All logs and data
+
+<Warning>
+  Organization deletion is permanent and immediate. There is no recovery.
+</Warning>
+
+## Integrations
+
+Connect external services:
+
+### Analytics
+
+Connect your analytics platform:
+- Segment
+- Mixpanel
+- Amplitude
+
+### Notifications
+
+Set up alerts:
+- Slack
+- Email
+- Webhooks
+
+## Billing (if applicable)
+
+View and manage your subscription:
+
+- Current plan
+- Usage metrics
+- Payment method
+- Invoices
+
+## Audit Log
+
+View a history of organization changes:
+
+| Event | Details |
+|-------|---------|
+| **Member invited** | Who invited whom |
+| **Role changed** | Who changed whose role |
+| **API key created** | Who created a key |
+| **Process created** | Who created what |
+| **Settings changed** | What was modified |
+
+## Export Data
+
+Export your organization data:
+
+<Steps>
+  <Step title="Click Export">
+    In the Settings page, click **Export Data**
+  </Step>
+
+  <Step title="Select What to Export">
+    - Processes
+    - Execution logs
+    - Analytics data
+    - Member list
+  </Step>
+
+  <Step title="Choose Format">
+    JSON or CSV
+  </Step>
+
+  <Step title="Download">
+    Click **Generate Export** and download when ready
+  </Step>
+</Steps>
+
+<Info>
+  Large exports may take a few minutes to generate. You'll get an email when ready.
+</Info>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Export before deleting">
+    Always export data you might need before using any Danger Zone action.
+  </Accordion>
+
+  <Accordion title="Review audit logs">
+    Check the audit log periodically to ensure no unauthorized changes.
+  </Accordion>
+
+  <Accordion title="Right-size your VMs">
+    Don't overpay for large VMs if small ones work fine. Test and adjust.
+  </Accordion>
+
+  <Accordion title="Set up notifications">
+    Get alerted when automations fail so you can respond quickly.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Members" icon="users" href="/dashboard/members">
+    Manage team access
+  </Card>
+  <Card title="Analytics" icon="chart-line" href="/dashboard/analytics">
+    View performance metrics
+  </Card>
+</CardGroup>

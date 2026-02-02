@@ -1,0 +1,174 @@
+---
+title: "Creating RPA Scripts"
+description: "Write your first RPA automation script"
+---
+
+## Script Basics
+
+RPA scripts in Granite use the Robocorp framework with Python.
+
+## Minimal Example
+
+```python
+from robocorp.tasks import task
+
+@task
+def my_automation():
+    """My first automation."""
+    print("Hello from Granite!")
+```
+
+The `@task` decorator marks the entry point.
+
+## Browser Automation
+
+```python
+from robocorp.tasks import task
+from robocorp import browser
+
+@task
+def web_automation():
+    # Navigate
+    browser.goto("https://example.com")
+
+    # Fill form
+    browser.fill("input#email", "user@example.com")
+    browser.fill("input#password", "secret")
+
+    # Click
+    browser.click("button#login")
+
+    # Wait for result
+    browser.wait_for_text("Welcome")
+
+    # Extract data
+    name = browser.text("span.username")
+    print(f"Logged in as: {name}")
+```
+
+## Desktop Automation
+
+```python
+from robocorp.tasks import task
+from RPA.Desktop import Desktop
+
+desktop = Desktop()
+
+@task
+def desktop_automation():
+    # Open application
+    desktop.open_application("notepad.exe")
+
+    # Type text
+    desktop.type_text("Hello from Granite!")
+
+    # Keyboard shortcuts
+    desktop.press_keys("ctrl", "s")
+
+    # Click at coordinates
+    desktop.click_at(100, 200)
+```
+
+## Excel Automation
+
+```python
+from robocorp.tasks import task
+from RPA.Excel.Files import Files
+
+@task
+def excel_automation():
+    excel = Files()
+
+    # Open workbook
+    excel.open_workbook("data.xlsx")
+
+    # Read data
+    data = excel.read_worksheet_as_table("Sheet1")
+
+    # Process rows
+    for row in data:
+        print(row["Name"], row["Amount"])
+
+    # Write data
+    excel.set_cell_value(1, 1, "Updated!")
+
+    # Save
+    excel.save_workbook()
+```
+
+## Error Handling
+
+```python
+from robocorp.tasks import task
+from robocorp import browser
+
+@task
+def safe_automation():
+    try:
+        browser.goto("https://example.com")
+        browser.click("button#submit")
+    except Exception as e:
+        print(f"Error: {e}")
+        # Take screenshot for debugging
+        browser.screenshot("error.png")
+        raise
+```
+
+## Waiting for Elements
+
+```python
+from robocorp import browser
+
+# Wait for element to appear
+browser.wait_for_element("div.success", timeout=10)
+
+# Wait for text
+browser.wait_for_text("Complete", timeout=30)
+
+# Custom wait
+import time
+time.sleep(2)  # Wait 2 seconds
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use explicit waits">
+    Don't use `time.sleep()` everywhere. Use `wait_for_element` or `wait_for_text` for reliability.
+  </Accordion>
+
+  <Accordion title="Handle errors gracefully">
+    Wrap risky operations in try/except. Take screenshots on failure.
+  </Accordion>
+
+  <Accordion title="Use meaningful names">
+    Name functions and variables clearly. Future you will thank you.
+  </Accordion>
+
+  <Accordion title="Test incrementally">
+    Build and test one step at a time. Don't write the whole script first.
+  </Accordion>
+</AccordionGroup>
+
+## Script Structure
+
+Recommended file organization:
+
+```
+my_automation/
+├── tasks.py         # Main script
+├── config.py        # Configuration
+├── helpers.py       # Utility functions
+└── robot.yaml       # Robocorp config
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Script Template" icon="file-code" href="/rpa-automation/script-template">
+    Standard structure
+  </Card>
+  <Card title="Finding Elements" icon="crosshairs" href="/rpa-automation/finding-elements">
+    Locate UI elements
+  </Card>
+</CardGroup>

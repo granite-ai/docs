@@ -1,0 +1,192 @@
+---
+title: "API Keys"
+description: "Create and manage API authentication keys"
+---
+
+## What are API Keys?
+
+API keys authenticate requests to your Granite endpoints. Without a valid key, requests are rejected.
+
+## Creating an API Key
+
+<Steps>
+  <Step title="Go to API Management">
+    Navigate to **API Management** in the sidebar
+  </Step>
+
+  <Step title="Click Create Key">
+    In the API Keys section, click **+ Create Key**
+  </Step>
+
+  <Step title="Name Your Key">
+    Give it a descriptive name:
+    - "Production Backend"
+    - "CI/CD Pipeline"
+    - "Partner Integration"
+  </Step>
+
+  <Step title="Copy Immediately">
+    **Important:** Copy the key now. It's only shown once!
+
+    ```
+    gk_live_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  Store your API key securely. If you lose it, you'll need to create a new one.
+</Warning>
+
+## Using API Keys
+
+Include the key in the `X-Granite-API-Key` header:
+
+<Tabs>
+  <Tab title="cURL">
+    ```bash
+    curl -X POST "https://api.getgranite.ai/api/your-org/endpoint" \
+      -H "X-Granite-API-Key: gk_live_abc123..." \
+      -H "Content-Type: application/json" \
+      -d '{"param": "value"}'
+    ```
+  </Tab>
+
+  <Tab title="JavaScript">
+    ```javascript
+    const response = await fetch(
+      'https://api.getgranite.ai/api/your-org/endpoint',
+      {
+        method: 'POST',
+        headers: {
+          'X-Granite-API-Key': 'gk_live_abc123...',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ param: 'value' }),
+      }
+    );
+    ```
+  </Tab>
+
+  <Tab title="Python">
+    ```python
+    import requests
+
+    response = requests.post(
+        'https://api.getgranite.ai/api/your-org/endpoint',
+        headers={
+            'X-Granite-API-Key': 'gk_live_abc123...',
+            'Content-Type': 'application/json',
+        },
+        json={'param': 'value'}
+    )
+    ```
+  </Tab>
+</Tabs>
+
+## Managing Keys
+
+### View Keys
+
+In API Management, you see:
+
+- Key name
+- Creation date
+- Last used date
+- Partial key (last 4 characters)
+
+### Revoke Keys
+
+To revoke a compromised or unused key:
+
+1. Find the key in the list
+2. Click the trash icon
+3. Confirm revocation
+
+<Warning>
+  Revocation is immediate. Any systems using the key will fail.
+</Warning>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use separate keys for different purposes">
+    Create distinct keys for:
+    - Production
+    - Staging
+    - CI/CD
+    - Each partner integration
+
+    If one is compromised, only revoke that one.
+  </Accordion>
+
+  <Accordion title="Rotate keys periodically">
+    Every 90 days:
+    1. Create a new key
+    2. Update your systems
+    3. Revoke the old key
+  </Accordion>
+
+  <Accordion title="Never commit keys to git">
+    Use environment variables or secret managers:
+    ```bash
+    export GRANITE_API_KEY="gk_live_abc123..."
+    ```
+  </Accordion>
+
+  <Accordion title="Monitor usage">
+    Check Analytics for unexpected patterns that might indicate a leak.
+  </Accordion>
+</AccordionGroup>
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| `401` | Missing or invalid API key |
+| `403` | Key valid but lacks permission |
+
+Example error:
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key",
+  "code": 401
+}
+```
+
+## Security
+
+API keys are:
+
+- **Encrypted** at rest
+- **Hashed** for storage (we don't store the plaintext)
+- **Scoped** to your organization
+- **Logged** on every use
+
+## SDK Usage
+
+Using the TypeScript SDK:
+
+```typescript
+import { client } from '@getgraniteai/ts-sdk';
+
+client.setConfig({
+  baseUrl: 'https://api.getgranite.ai',
+  headers: {
+    'X-Granite-API-Key': process.env.GRANITE_API_KEY,
+  },
+});
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Create Endpoints" icon="route" href="/public-api/creating-endpoints">
+    Make your automation callable
+  </Card>
+  <Card title="Invoke Automations" icon="bolt" href="/public-api/invoking-automations">
+    Call your endpoints
+  </Card>
+</CardGroup>

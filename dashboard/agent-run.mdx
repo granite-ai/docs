@@ -1,0 +1,199 @@
+---
+title: "Agent Run"
+description: "Execute and monitor automations in real-time"
+---
+
+## The Execution Interface
+
+When you run an automation, you're taken to the Agent Run page. This is where you watch, interact, and control the execution.
+
+## Interface Layout
+
+<CardGroup cols={2}>
+  <Card title="Video Panel" icon="video">
+    Live stream of the Windows desktop
+  </Card>
+  <Card title="Chat Panel" icon="comments">
+    Action-by-action log and HITL controls
+  </Card>
+  <Card title="Progress Bar" icon="bars-progress">
+    Current stage of execution
+  </Card>
+  <Card title="Control Bar" icon="sliders">
+    Play, pause, cancel buttons
+  </Card>
+</CardGroup>
+
+## Live Video Streaming
+
+The left side shows a real-time video of the Windows desktop:
+
+- **WebRTC** powered - Low latency, high quality
+- **Full screen** option available
+- **Screenshot** button to capture current view
+
+<Info>
+  Video streaming requires WebRTC support in your browser. Most modern browsers work fine.
+</Info>
+
+## Chat Panel
+
+The right side shows the conversation with the AI agent:
+
+```
+Agent: Starting automation "Weekly Sales Report"
+       Connecting to driver machine...
+
+Agent: Connected. Opening Excel application.
+       [Screenshot captured]
+
+Agent: I'm about to click "File > Open"
+       [Approve] [Modify] [Skip] [Cancel]
+
+You: [Clicked Approve]
+
+Agent: Opening file dialog. Navigating to Sales folder...
+```
+
+## HITL Controls
+
+When the agent pauses for approval, you'll see these options:
+
+<Tabs>
+  <Tab title="Approve">
+    **When to use:** The action looks correct
+
+    Click **Approve** to let the agent proceed with the planned action.
+  </Tab>
+
+  <Tab title="Modify">
+    **When to use:** The action is close but needs adjustment
+
+    Enter a modification like:
+    - "Click the blue button instead"
+    - "Type 'Q1 2024' not 'Q1 2023'"
+    - "Wait 5 seconds first"
+  </Tab>
+
+  <Tab title="Skip">
+    **When to use:** This step isn't needed
+
+    The agent will skip the current action and move to the next one.
+  </Tab>
+
+  <Tab title="Cancel">
+    **When to use:** Something is wrong, stop everything
+
+    Immediately stops the execution. No further actions will run.
+  </Tab>
+</Tabs>
+
+## Progress Stages
+
+The progress bar shows where you are in the execution:
+
+| Stage | Description |
+|-------|-------------|
+| **Queued** | Waiting for an available driver |
+| **Connecting** | Establishing connection to driver |
+| **Running** | Actively executing steps |
+| **Waiting** | Paused for HITL approval |
+| **Completed** | Finished successfully |
+| **Failed** | Encountered an error |
+| **Cancelled** | Stopped by user |
+
+## Screenshots
+
+Throughout execution, Granite captures screenshots:
+
+- **Before** each action
+- **After** each action
+- **On errors** for debugging
+- **Final state** when complete
+
+View screenshots in the slideshow below the video panel.
+
+## Recordings
+
+Every execution is recorded:
+
+- Full video from start to finish
+- Downloadable after completion
+- Useful for auditing and review
+
+## Execution Controls
+
+<CardGroup cols={3}>
+  <Card title="Pause" icon="pause">
+    Temporarily stop execution (resume later)
+  </Card>
+  <Card title="Cancel" icon="stop">
+    Stop execution permanently
+  </Card>
+  <Card title="Full Screen" icon="expand">
+    Maximize the video panel
+  </Card>
+</CardGroup>
+
+## Handling Errors
+
+If something goes wrong:
+
+1. **Video shows the error state** - See exactly what happened
+2. **Chat explains the error** - Agent describes what went wrong
+3. **Options to recover**:
+   - Modify the approach and retry
+   - Skip the problematic step
+   - Cancel and investigate
+
+<Warning>
+  If the agent repeatedly fails on the same action, it may need a different approach. Try modifying the instruction or creating an RPA script for more control.
+</Warning>
+
+## After Execution
+
+When the run completes:
+
+- **Summary** - Success/failure, duration, action count
+- **Screenshots** - Browse all captured images
+- **Recording** - Download the video
+- **Logs** - Detailed trace of every step
+
+## Tips for Effective Monitoring
+
+<AccordionGroup>
+  <Accordion title="Keep the video visible">
+    The video shows exactly what the agent sees. If something looks wrong, you can catch it immediately.
+  </Accordion>
+
+  <Accordion title="Read the chat carefully">
+    The agent explains what it's about to do before doing it. This is your chance to catch mistakes.
+  </Accordion>
+
+  <Accordion title="Use Modify, not Cancel">
+    If an action is close but not quite right, modify it instead of cancelling. You'll preserve progress.
+  </Accordion>
+
+  <Accordion title="Review recordings later">
+    Even if execution succeeds, watch the recording to understand how the automation works. You might find optimization opportunities.
+  </Accordion>
+</AccordionGroup>
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Enter` | Approve current action |
+| `Escape` | Cancel execution |
+| `Space` | Pause/Resume |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="View Run Logs" icon="list" href="/dashboard/run-logs">
+    See execution history
+  </Card>
+  <Card title="HITL Deep Dive" icon="hand" href="/agent-execution/hitl-workflows">
+    Master human oversight
+  </Card>
+</CardGroup>

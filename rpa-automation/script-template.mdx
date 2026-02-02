@@ -1,0 +1,217 @@
+---
+title: "Script Template"
+description: "Standard RPA script structure for Granite"
+---
+
+## Full Template
+
+Use this template as a starting point:
+
+```python
+"""
+Automation Name: [Your automation name]
+Description: [What this automation does]
+Author: [Your name]
+"""
+
+from robocorp.tasks import task
+from robocorp import browser
+from RPA.Desktop import Desktop
+from RPA.Excel.Files import Files
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize libraries
+desktop = Desktop()
+excel = Files()
+
+
+def setup():
+    """Initialize environment before automation."""
+    logger.info("Setting up automation...")
+    # Add any setup logic here
+
+
+def cleanup():
+    """Clean up after automation."""
+    logger.info("Cleaning up...")
+    # Close browsers, files, etc.
+    try:
+        browser.close_browser()
+    except:
+        pass
+
+
+def take_error_screenshot(name="error"):
+    """Capture screenshot on error."""
+    try:
+        browser.screenshot(f"{name}.png")
+        logger.info(f"Screenshot saved: {name}.png")
+    except Exception as e:
+        logger.warning(f"Could not take screenshot: {e}")
+
+
+@task
+def main_automation():
+    """
+    Main automation entry point.
+
+    This is where your automation logic goes.
+    """
+    try:
+        setup()
+
+        # ========================================
+        # YOUR AUTOMATION LOGIC HERE
+        # ========================================
+
+        logger.info("Starting automation...")
+
+        # Example: Open browser
+        # browser.goto("https://example.com")
+
+        # Example: Fill form
+        # browser.fill("#email", "user@example.com")
+
+        # Example: Click button
+        # browser.click("button#submit")
+
+        # Example: Wait for result
+        # browser.wait_for_text("Success")
+
+        logger.info("Automation completed successfully!")
+
+    except Exception as e:
+        logger.error(f"Automation failed: {e}")
+        take_error_screenshot("failure")
+        raise
+
+    finally:
+        cleanup()
+```
+
+## Template Sections
+
+### Header
+
+Document what the script does:
+
+```python
+"""
+Automation Name: Daily Sales Report
+Description: Extracts sales data from CRM and generates Excel report
+Author: Jane Smith
+Last Updated: 2024-01-15
+"""
+```
+
+### Imports
+
+Import only what you need:
+
+```python
+from robocorp.tasks import task      # Required
+from robocorp import browser          # For web automation
+from RPA.Desktop import Desktop       # For desktop automation
+from RPA.Excel.Files import Files     # For Excel
+import logging                        # For logging
+```
+
+### Configuration
+
+Keep settings separate:
+
+```python
+# config.py
+CONFIG = {
+    "url": "https://app.example.com",
+    "timeout": 30,
+    "output_path": "reports/",
+}
+```
+
+### Setup/Cleanup
+
+Always initialize and clean up:
+
+```python
+def setup():
+    """Run before main automation."""
+    logger.info("Initializing...")
+
+def cleanup():
+    """Run after main automation."""
+    browser.close_browser()
+```
+
+### Error Handling
+
+Always wrap in try/except:
+
+```python
+try:
+    # Risky operation
+    browser.click("button#delete")
+except Exception as e:
+    logger.error(f"Failed: {e}")
+    take_error_screenshot()
+    raise  # Re-raise to mark automation as failed
+```
+
+## Variations
+
+### Browser-Only Template
+
+```python
+from robocorp.tasks import task
+from robocorp import browser
+
+@task
+def browser_automation():
+    browser.goto("https://example.com")
+    # ... browser operations
+    browser.close_browser()
+```
+
+### Desktop-Only Template
+
+```python
+from robocorp.tasks import task
+from RPA.Desktop import Desktop
+
+desktop = Desktop()
+
+@task
+def desktop_automation():
+    desktop.open_application("notepad.exe")
+    # ... desktop operations
+```
+
+### Data Processing Template
+
+```python
+from robocorp.tasks import task
+from RPA.Excel.Files import Files
+
+@task
+def data_automation():
+    excel = Files()
+    excel.open_workbook("input.xlsx")
+    data = excel.read_worksheet_as_table()
+    # ... process data
+    excel.save_workbook("output.xlsx")
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Finding Elements" icon="crosshairs" href="/rpa-automation/finding-elements">
+    Locate UI elements
+  </Card>
+  <Card title="Error Recovery" icon="shield" href="/rpa-automation/error-recovery">
+    Handle failures
+  </Card>
+</CardGroup>

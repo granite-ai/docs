@@ -1,0 +1,243 @@
+---
+title: "Invoking Automations"
+description: "Call your endpoints from external systems"
+---
+
+## Making API Calls
+
+Once you have an endpoint and API key, you can trigger automations from anywhere.
+
+## Basic Request
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/your-org/your-endpoint" \
+  -H "X-Granite-API-Key: gk_live_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{"param1": "value1"}'
+```
+
+## Request Format
+
+### Headers
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `X-Granite-API-Key` | Yes | Your API key |
+| `Content-Type` | Yes (for POST) | `application/json` |
+
+### Body
+
+JSON object with your parameters:
+
+```json
+{
+  "invoiceNumber": "INV-2024-001",
+  "amount": 1500.00,
+  "vendor": "Acme Supplies"
+}
+```
+
+## Response Modes
+
+### Asynchronous (Default)
+
+Request returns immediately:
+
+```json
+{
+  "runId": "run_abc123",
+  "status": "queued",
+  "message": "Automation queued successfully"
+}
+```
+
+Then poll for status:
+
+```bash
+curl "https://api.getgranite.ai/api/agent-runs/run_abc123" \
+  -H "X-Granite-API-Key: gk_live_abc123..."
+```
+
+### Synchronous
+
+Add `?wait=true` to wait for completion:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/your-org/endpoint?wait=true" \
+  -H "X-Granite-API-Key: gk_live_abc123..."
+```
+
+Response:
+
+```json
+{
+  "runId": "run_abc123",
+  "status": "completed",
+  "duration": 45000,
+  "result": {
+    "output": "Report generated successfully",
+    "filePath": "reports/january-2024.pdf"
+  }
+}
+```
+
+<Warning>
+  Synchronous calls have a timeout (default 5 minutes). For long automations, use async.
+</Warning>
+
+## Status Values
+
+| Status | Meaning |
+|--------|---------|
+| `queued` | Waiting for a driver |
+| `running` | Currently executing |
+| `completed` | Finished successfully |
+| `failed` | Encountered an error |
+| `cancelled` | Stopped manually |
+
+## Error Handling
+
+### HTTP Errors
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| `400` | Bad request | Check parameters |
+| `401` | Unauthorized | Check API key |
+| `404` | Not found | Check endpoint URL |
+| `429` | Rate limited | Wait and retry |
+| `500` | Server error | Contact support |
+
+### Execution Errors
+
+```json
+{
+  "runId": "run_abc123",
+  "status": "failed",
+  "error": {
+    "type": "element_not_found",
+    "message": "Could not locate the Submit button",
+    "screenshot": "https://..."
+  }
+}
+```
+
+## Code Examples
+
+<Tabs>
+  <Tab title="JavaScript">
+    ```javascript
+    async function runAutomation(params) {
+      const response = await fetch(
+        'https://api.getgranite.ai/api/my-org/my-endpoint',
+        {
+          method: 'POST',
+          headers: {
+            'X-Granite-API-Key': process.env.GRANITE_API_KEY,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(params),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    // Usage
+    const result = await runAutomation({
+      month: 'January',
+      year: 2024,
+    });
+    console.log('Run ID:', result.runId);
+    ```
+  </Tab>
+
+  <Tab title="Python">
+    ```python
+    import requests
+    import os
+
+    def run_automation(params):
+        response = requests.post(
+            'https://api.getgranite.ai/api/my-org/my-endpoint',
+            headers={
+                'X-Granite-API-Key': os.environ['GRANITE_API_KEY'],
+                'Content-Type': 'application/json',
+            },
+            json=params
+        )
+        response.raise_for_status()
+        return response.json()
+
+    # Usage
+    result = run_automation({
+        'month': 'January',
+        'year': 2024
+    })
+    print(f"Run ID: {result['runId']}")
+    ```
+  </Tab>
+
+  <Tab title="TypeScript SDK">
+    ```typescript
+    import { client } from '@getgraniteai/ts-sdk';
+
+    client.setConfig({
+      headers: {
+        'X-Granite-API-Key': process.env.GRANITE_API_KEY,
+      },
+    });
+
+    const result = await client.invokeOrgEndpoint({
+      orgIdentifier: 'my-org',
+      slug: 'my-endpoint',
+      body: {
+        month: 'January',
+        year: 2024,
+      },
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Polling for Status
+
+For async calls, poll until completion:
+
+```javascript
+async function waitForCompletion(runId) {
+  while (true) {
+    const response = await fetch(
+      `https://api.getgranite.ai/api/agent-runs/${runId}`,
+      {
+        headers: { 'X-Granite-API-Key': apiKey },
+      }
+    );
+    const data = await response.json();
+
+    if (['completed', 'failed', 'cancelled'].includes(data.status)) {
+      return data;
+    }
+
+    await new Promise(r => setTimeout(r, 2000)); // Wait 2 seconds
+  }
+}
+```
+
+## Webhooks
+
+For event-driven workflows, you can set up a webhook to be called when execution completes. (Coming soon)
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="code" href="/api-reference/overview">
+    Full API documentation
+  </Card>
+  <Card title="TypeScript SDK" icon="js" href="/typescript-sdk/overview">
+    Use our official SDK
+  </Card>
+</CardGroup>

@@ -1,0 +1,242 @@
+---
+title: "API Endpoints"
+description: "Create and manage public API endpoints for your automations"
+---
+
+## What Are API Endpoints?
+
+API Endpoints let you trigger automations from external systems. Turn any process into a REST API that can be called from:
+
+- Webhooks
+- Cron jobs
+- Other applications
+- CI/CD pipelines
+- Custom integrations
+
+<Frame>
+  <img src="/images/dashboard/api-endpoints.png" alt="API Endpoints page" />
+</Frame>
+
+## Creating an Endpoint
+
+<Steps>
+  <Step title="Go to API Endpoints">
+    Navigate to **API Endpoints** in the sidebar
+  </Step>
+
+  <Step title="Click Create Endpoint">
+    Hit the **+ Create Endpoint** button
+  </Step>
+
+  <Step title="Configure the Endpoint">
+    | Field | Description | Example |
+    |-------|-------------|---------|
+    | **Name** | Descriptive name | "Generate Monthly Report" |
+    | **Slug** | URL path | `generate-report` |
+    | **Process** | Which process to run | Select from dropdown |
+    | **Method** | HTTP method | GET, POST |
+  </Step>
+
+  <Step title="Save">
+    Click **Create** to generate the endpoint
+  </Step>
+</Steps>
+
+## Endpoint URL Structure
+
+Your endpoints follow this pattern:
+
+```
+https://api.getgranite.ai/api/{org-slug}/{endpoint-slug}
+```
+
+For example:
+```
+https://api.getgranite.ai/api/acme-corp/generate-report
+```
+
+## Authentication
+
+All API endpoints require authentication via the `X-Granite-API-Key` header:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/acme-corp/generate-report" \
+  -H "X-Granite-API-Key: gk_live_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{"month": "January"}'
+```
+
+<Warning>
+  Never expose your API key in client-side code or public repositories. Keep it server-side only.
+</Warning>
+
+## Passing Parameters
+
+Send parameters as JSON in the request body:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/acme-corp/process-invoice" \
+  -H "X-Granite-API-Key: gk_live_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "invoiceNumber": "INV-2024-001",
+    "amount": 1500.00,
+    "vendor": "Acme Supplies"
+  }'
+```
+
+These parameters are available to your automation during execution.
+
+## Testing Endpoints
+
+Test your endpoint directly from the dashboard:
+
+<Steps>
+  <Step title="Open the Endpoint">
+    Click on the endpoint you want to test
+  </Step>
+
+  <Step title="Enter Test Parameters">
+    Fill in the parameter form with test values
+  </Step>
+
+  <Step title="Click Test">
+    The endpoint will be called and you'll see the response
+  </Step>
+</Steps>
+
+### Example Test Response
+
+```json
+{
+  "runId": "run_abc123",
+  "status": "queued",
+  "message": "Automation queued successfully",
+  "estimatedWait": "30s"
+}
+```
+
+## Response Formats
+
+### Synchronous (Wait for Result)
+
+Add `?wait=true` to wait for completion:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/acme-corp/quick-task?wait=true" \
+  -H "X-Granite-API-Key: gk_live_abc123..."
+```
+
+Response:
+```json
+{
+  "runId": "run_abc123",
+  "status": "completed",
+  "duration": 45000,
+  "result": {
+    "output": "Task completed successfully"
+  }
+}
+```
+
+### Asynchronous (Fire and Forget)
+
+Default behavior returns immediately:
+
+```json
+{
+  "runId": "run_abc123",
+  "status": "queued"
+}
+```
+
+Then poll for status:
+```bash
+curl "https://api.getgranite.ai/api/agent-runs/run_abc123" \
+  -H "X-Granite-API-Key: gk_live_abc123..."
+```
+
+## Endpoint Settings
+
+| Setting | Description |
+|---------|-------------|
+| **Enabled** | Toggle endpoint on/off |
+| **Rate Limit** | Max calls per minute |
+| **Timeout** | Max wait time for sync calls |
+| **HITL Mode** | Whether to require human approval |
+
+<Note>
+  API-triggered automations typically run without HITL approval for full automation. Configure carefully.
+</Note>
+
+## cURL Examples
+
+The dashboard generates ready-to-use cURL commands:
+
+<Tabs>
+  <Tab title="Basic">
+    ```bash
+    curl -X POST "https://api.getgranite.ai/api/acme-corp/my-endpoint" \
+      -H "X-Granite-API-Key: YOUR_API_KEY"
+    ```
+  </Tab>
+
+  <Tab title="With Parameters">
+    ```bash
+    curl -X POST "https://api.getgranite.ai/api/acme-corp/my-endpoint" \
+      -H "X-Granite-API-Key: YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"param1": "value1", "param2": "value2"}'
+    ```
+  </Tab>
+
+  <Tab title="Wait for Result">
+    ```bash
+    curl -X POST "https://api.getgranite.ai/api/acme-corp/my-endpoint?wait=true" \
+      -H "X-Granite-API-Key: YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"param1": "value1"}'
+    ```
+  </Tab>
+</Tabs>
+
+## Error Responses
+
+| Status Code | Meaning |
+|-------------|---------|
+| `200` | Success |
+| `400` | Bad request (invalid parameters) |
+| `401` | Unauthorized (invalid/missing API key) |
+| `404` | Endpoint not found |
+| `429` | Rate limit exceeded |
+| `500` | Server error |
+
+### Error Response Format
+
+```json
+{
+  "error": "invalid_parameters",
+  "message": "Required parameter 'invoiceNumber' is missing",
+  "code": 400
+}
+```
+
+## Monitoring Endpoint Usage
+
+Track your API usage in the Analytics dashboard:
+
+- **Total calls** - How often the endpoint is called
+- **Success rate** - Percentage of successful invocations
+- **Avg latency** - Response time
+- **Top callers** - If using multiple API keys
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Management" icon="key" href="/dashboard/api-management">
+    Create and manage API keys
+  </Card>
+  <Card title="Public API Guide" icon="globe" href="/public-api/overview">
+    Deep dive into API integration
+  </Card>
+</CardGroup>

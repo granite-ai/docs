@@ -1,0 +1,133 @@
+---
+title: "Driver Installation"
+description: "Install the Granite driver on a Windows machine"
+---
+
+## Prerequisites
+
+Before installing:
+
+- Windows 10/11 (Pro or Enterprise)
+- Python 3.12 installed
+- Administrator access
+- Internet connectivity
+
+<Warning>
+  Use Python 3.12, not 3.13+. There are compatibility issues with pywin32 on newer versions.
+</Warning>
+
+## Installation Steps
+
+<Steps>
+  <Step title="Install Python 3.12">
+    Download from [python.org](https://www.python.org/downloads/release/python-3120/)
+
+    **Important:** Check "Add Python to PATH" during installation.
+  </Step>
+
+  <Step title="Download the Driver">
+    Get the driver package from your Granite dashboard or:
+
+    ```powershell
+    git clone https://github.com/your-org/granite-driver.git
+    cd granite-driver/driver
+    ```
+  </Step>
+
+  <Step title="Install Dependencies">
+    ```powershell
+    pip install -r requirements.txt
+    ```
+
+    This installs:
+    - pyautogui (UI automation)
+    - rpaframework (Robocorp RPA)
+    - websockets (Backend connection)
+    - mss (Screen capture)
+    - aiortc (WebRTC streaming)
+  </Step>
+
+  <Step title="Configure the Driver">
+    Create or edit the configuration file:
+
+    ```python
+    # config.py
+    BACKEND_URL = "wss://api.getgranite.ai/ws/driver"
+    MACHINE_ID = "unique-machine-id"  # Change this
+    ```
+  </Step>
+
+  <Step title="Test the Installation">
+    Run a quick test:
+
+    ```powershell
+    python -c "import pyautogui; print(pyautogui.position())"
+    ```
+
+    Should print your mouse position.
+  </Step>
+</Steps>
+
+## Directory Structure
+
+After installation:
+
+```
+granite-driver/
+├── driver/
+│   ├── src/
+│   │   ├── config.py          # Configuration
+│   │   ├── connection/        # WebSocket logic
+│   │   ├── executor/          # Job execution
+│   │   └── streaming/         # Video streaming
+│   ├── requirements.txt       # Dependencies
+│   └── main.py               # Entry point
+```
+
+## Running the Driver
+
+### Manual Start
+
+```powershell
+cd granite-driver/driver
+python main.py
+```
+
+### As a Service (Recommended)
+
+For production, run as a Windows service:
+
+```powershell
+# Using NSSM (Non-Sucking Service Manager)
+nssm install GraniteDriver "C:\Python312\python.exe" "C:\granite-driver\driver\main.py"
+nssm start GraniteDriver
+```
+
+## Verifying Installation
+
+After starting the driver:
+
+1. Check the console for "Connected to backend"
+2. Go to **Driver Management** in the dashboard
+3. Your machine should appear as **Online**
+
+## Environment Variables
+
+Optional configuration via environment:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GRANITE_BACKEND_URL` | WebSocket endpoint | Production URL |
+| `GRANITE_MACHINE_ID` | Unique identifier | Hostname |
+| `GRANITE_LOG_LEVEL` | Logging verbosity | INFO |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Enrollment" icon="user-plus" href="/driver/enrollment">
+    Register with your organization
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/driver/troubleshooting">
+    Fix common issues
+  </Card>
+</CardGroup>

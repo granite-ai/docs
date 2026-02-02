@@ -1,0 +1,194 @@
+---
+title: "Driver Troubleshooting"
+description: "Fix common driver issues"
+---
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="Driver shows offline">
+    **Symptoms:** Machine appears offline in Driver Management
+
+    **Causes & Solutions:**
+
+    1. **Driver not running**
+       ```powershell
+       # Check if running
+       Get-Process python -ErrorAction SilentlyContinue
+
+       # Start the driver
+       python main.py
+       ```
+
+    2. **Network connectivity**
+       ```powershell
+       # Test connection
+       Test-NetConnection -ComputerName api.getgranite.ai -Port 443
+       ```
+
+    3. **Firewall blocking WebSocket**
+       - Allow outbound HTTPS (443) to api.getgranite.ai
+       - Allow WebSocket connections
+
+    4. **Invalid credentials**
+       - Re-enroll the driver with a new token
+  </Accordion>
+
+  <Accordion title="Connection keeps dropping">
+    **Symptoms:** Driver connects then disconnects repeatedly
+
+    **Causes & Solutions:**
+
+    1. **Unstable network**
+       - Check WiFi/ethernet stability
+       - Try a wired connection
+
+    2. **Firewall or proxy interference**
+       - Whitelist api.getgranite.ai
+       - Disable SSL inspection for this domain
+
+    3. **Backend maintenance**
+       - Check status.getgranite.ai for outages
+  </Accordion>
+
+  <Accordion title="Jobs not executing">
+    **Symptoms:** Driver is online but jobs stay queued
+
+    **Causes & Solutions:**
+
+    1. **Driver busy with another job**
+       - Check current job in Driver Management
+       - Wait for it to complete
+
+    2. **Capability mismatch**
+       - Ensure required software is installed
+       - Check driver capabilities in settings
+
+    3. **Resource exhaustion**
+       - Check CPU/RAM usage
+       - Restart the driver
+  </Accordion>
+
+  <Accordion title="Video streaming not working">
+    **Symptoms:** Black screen or no video in dashboard
+
+    **Causes & Solutions:**
+
+    1. **Screen capture permissions**
+       - Run driver as Administrator
+       - Grant screen recording permissions
+
+    2. **WebRTC blocked**
+       - Check firewall allows UDP
+       - Disable VPN (may block WebRTC)
+
+    3. **Display issues**
+       - Ensure a display is connected (or use virtual display)
+       - Check screen resolution is supported
+  </Accordion>
+
+  <Accordion title="Python/dependency errors">
+    **Symptoms:** Import errors, module not found
+
+    **Causes & Solutions:**
+
+    1. **Wrong Python version**
+       ```powershell
+       python --version
+       # Must be 3.12.x, not 3.13+
+       ```
+
+    2. **Dependencies not installed**
+       ```powershell
+       pip install -r requirements.txt
+       ```
+
+    3. **Virtual environment issues**
+       ```powershell
+       # Create fresh environment
+       python -m venv .venv
+       .\.venv\Scripts\Activate
+       pip install -r requirements.txt
+       ```
+  </Accordion>
+
+  <Accordion title="UI automation failures">
+    **Symptoms:** Element not found, click misses target
+
+    **Causes & Solutions:**
+
+    1. **Screen scaling**
+       - Set display scaling to 100%
+       - Or configure for your scaling in driver settings
+
+    2. **Application not responding**
+       - Add waits before interactions
+       - Check application health
+
+    3. **UI changed**
+       - Update automation to match new UI
+       - Use more robust element locators
+  </Accordion>
+</AccordionGroup>
+
+## Diagnostic Commands
+
+### Check Driver Status
+
+```powershell
+# View recent logs
+Get-Content C:\granite-driver\logs\latest.log -Tail 50
+
+# Check process
+Get-Process -Name python | Where-Object {$_.Path -like "*granite*"}
+
+# Network connectivity
+Test-NetConnection -ComputerName api.getgranite.ai -Port 443
+```
+
+### Reset Driver
+
+```powershell
+# Stop the driver
+Stop-Process -Name python -Force
+
+# Clear cache
+Remove-Item -Path "C:\granite-driver\.cache" -Recurse -Force
+
+# Restart
+python main.py
+```
+
+### Verbose Logging
+
+```powershell
+$env:GRANITE_LOG_LEVEL = "DEBUG"
+python main.py
+```
+
+## Log Locations
+
+| Log | Location |
+|-----|----------|
+| Driver logs | `C:\granite-driver\logs\` |
+| Connection logs | `C:\granite-driver\logs\connection.log` |
+| Execution logs | `C:\granite-driver\logs\execution.log` |
+
+## Getting Help
+
+If you can't resolve the issue:
+
+1. Collect logs from the last hour
+2. Note the machine ID and error messages
+3. Contact support with this information
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Driver Installation" icon="download" href="/driver/installation">
+    Reinstall if needed
+  </Card>
+  <Card title="Driver Management" icon="server" href="/dashboard/driver-management">
+    Check status
+  </Card>
+</CardGroup>

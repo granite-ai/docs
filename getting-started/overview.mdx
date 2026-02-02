@@ -1,0 +1,153 @@
+---
+title: "Platform Overview"
+description: "What Granite does and why you'd use it"
+---
+
+## What is Granite?
+
+Granite is a **desktop automation platform** that lets you automate tasks on Windows machines with AI agents. Unlike traditional RPA tools, Granite gives you:
+
+- **Real-time visibility** - Watch your automations execute live
+- **Human oversight** - Approve or modify actions before they happen
+- **AI-powered flexibility** - Describe tasks in plain English
+- **API accessibility** - Trigger automations from anywhere
+
+## Who Uses Granite?
+
+<CardGroup cols={3}>
+  <Card title="Operations Teams" icon="users-gear">
+    Automate data entry, report generation, and repetitive workflows
+  </Card>
+  <Card title="Developers" icon="code">
+    Build API-triggered automations for backend processes
+  </Card>
+  <Card title="IT Teams" icon="server">
+    Manage Windows machines and run maintenance tasks
+  </Card>
+</CardGroup>
+
+## Core Capabilities
+
+### Desktop Automation
+
+Granite can control any Windows application:
+
+- **Click** buttons, menus, and UI elements
+- **Type** text into fields and documents
+- **Read** data from screens and applications
+- **Navigate** through multi-step workflows
+- **Handle** popups, dialogs, and errors
+
+### AI Agent Execution
+
+Instead of writing detailed scripts, you can describe tasks in plain English:
+
+```
+Open Excel, navigate to the Sales Report template,
+update cell B2 with today's date, and save the file
+```
+
+The AI agent figures out the steps and executes them on a Windows machine.
+
+### Human-in-the-Loop (HITL)
+
+You don't have to trust the AI blindly:
+
+- Watch execution in **real-time** via live video
+- **Approve** actions before they happen
+- **Modify** actions if the AI gets it wrong
+- **Cancel** execution at any point
+
+### Public API Endpoints
+
+Turn any automation into an API endpoint:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/your-org/run-report" \
+  -H "X-Granite-API-Key: your-key" \
+  -d '{"date": "2024-01-15"}'
+```
+
+## Platform Components
+
+<Tabs>
+  <Tab title="Dashboard">
+    The web interface where you:
+    - Create and manage processes
+    - Run and monitor automations
+    - View analytics and logs
+    - Manage team members and API keys
+  </Tab>
+
+  <Tab title="Backend API">
+    The server that:
+    - Handles authentication
+    - Manages job queues
+    - Stores execution data
+    - Provides 110+ REST endpoints
+  </Tab>
+
+  <Tab title="Driver">
+    The Windows agent that:
+    - Receives jobs from the backend
+    - Executes desktop automation
+    - Streams video back
+    - Reports results
+  </Tab>
+
+  <Tab title="TypeScript SDK">
+    The official client library that:
+    - Wraps all API endpoints
+    - Provides TypeScript types
+    - Simplifies integration
+  </Tab>
+</Tabs>
+
+## Key Concepts
+
+| Concept | What It Means |
+|---------|---------------|
+| **Process** | A reusable automation definition |
+| **Agent Run** | A single execution of a process |
+| **HITL** | Human approval during execution |
+| **Driver** | Windows machine running automations |
+| **Endpoint** | Public API trigger for an automation |
+
+## Comparison to Other Tools
+
+<AccordionGroup>
+  <Accordion title="vs. Traditional RPA (UiPath, Blue Prism)">
+    **Granite is simpler**:
+    - No desktop studio required
+    - AI-powered task description
+    - Real-time human oversight
+    - API-first architecture
+  </Accordion>
+
+  <Accordion title="vs. Browser Automation (Puppeteer, Playwright)">
+    **Granite does more**:
+    - Works with any Windows app, not just browsers
+    - Desktop-level automation
+    - Built-in video streaming
+    - HITL approval workflow
+  </Accordion>
+
+  <Accordion title="vs. AI Assistants (ChatGPT, Claude)">
+    **Granite executes**:
+    - Actually performs tasks, not just suggests
+    - Controls real Windows machines
+    - Handles multi-step workflows
+    - Provides execution history
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Sign Up" icon="user-plus" href="/getting-started/sign-up">
+    Create your free account
+  </Card>
+  <Card title="First Automation" icon="play" href="/getting-started/your-first-automation">
+    Build something in 5 minutes
+  </Card>
+</CardGroup>

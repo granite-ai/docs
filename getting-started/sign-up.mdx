@@ -1,0 +1,147 @@
+---
+title: "Sign Up"
+description: "Create your Granite account in under a minute"
+---
+
+## Create Your Account
+
+Getting started with Granite is free and takes less than a minute.
+
+<Steps>
+  <Step title="Go to Granite">
+    Open [app.getgranite.ai](https://app.getgranite.ai) in your browser
+  </Step>
+
+  <Step title="Choose Sign-In Method">
+    You have two options:
+
+    <CardGroup cols={2}>
+      <Card title="Magic Link" icon="envelope">
+        Enter your email and click a link we send you
+      </Card>
+      <Card title="Google OAuth" icon="google">
+        Sign in with your Google account instantly
+      </Card>
+    </CardGroup>
+  </Step>
+
+  <Step title="Complete Authentication">
+    **For Magic Link:**
+    1. Enter your work email
+    2. Click **Continue**
+    3. Check your inbox for the magic link
+    4. Click the link to sign in
+
+    **For Google:**
+    1. Click **Sign in with Google**
+    2. Select your Google account
+    3. You're in!
+  </Step>
+
+  <Step title="Create or Join Organization">
+    After signing in:
+    - **New user?** You'll create your first organization
+    - **Invited?** You'll see organizations you can join
+    - **Multiple orgs?** You'll pick which one to enter
+
+  </Step>
+</Steps>
+
+## Creating an Organization
+
+If this is your first time, you'll create an organization:
+
+<Steps>
+  <Step title="Enter Organization Name">
+    This is what your team will see. Example: "Acme Corp"
+  </Step>
+
+  <Step title="Set Organization Slug">
+    The slug is used in API endpoints:
+    - Auto-generated from the name
+    - Must be unique
+    - Example: `acme-corp`
+
+    <Tip>
+      Your API endpoints will look like:
+      `https://api.getgranite.ai/api/acme-corp/your-endpoint`
+    </Tip>
+  </Step>
+
+  <Step title="Click Create">
+    You'll be redirected to your new dashboard
+  </Step>
+</Steps>
+
+## Joining an Existing Organization
+
+If someone invited you:
+
+1. Use the same email they sent the invite to
+2. After signing in, you'll see available organizations
+3. Click **Join** next to the organization
+
+<Info>
+  Invites are tied to email addresses. Make sure you're using the email the invite was sent to.
+</Info>
+
+## Organization Roles
+
+When you join or create an org, you'll have a role:
+
+| Role | Capabilities |
+|------|--------------|
+| **Admin** | Full access: create processes, manage members, API keys, settings |
+| **Member** | Create and run processes, view logs and analytics |
+| **Viewer** | View-only access to processes and logs |
+
+<Note>
+  The person who creates an organization automatically becomes an Admin.
+</Note>
+
+## Switching Organizations
+
+If you belong to multiple organizations:
+
+1. Click the organization name in the top-left
+2. Select a different organization from the dropdown
+3. Or click **Create New Organization** to start another
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I didn't receive the magic link">
+    - Check your spam/junk folder
+    - Verify you entered the correct email
+    - Wait a minute and try again
+    - Try using Google OAuth instead
+  </Accordion>
+
+  <Accordion title="My magic link expired">
+    Magic links expire after 1 hour. Request a new one from the login page.
+  </Accordion>
+
+  <Accordion title="I can't see my organization">
+    - Make sure you're using the right email
+    - Ask an Admin to resend your invite
+    - Check if you accidentally left the organization
+  </Accordion>
+
+  <Accordion title="Organization slug already taken">
+    Slugs must be unique across Granite. Try:
+    - Adding numbers: `acme-corp-1`
+    - Adding location: `acme-corp-nyc`
+    - Using abbreviations: `acme-c`
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Your First Automation" icon="play" href="/getting-started/your-first-automation">
+    Create and run your first process
+  </Card>
+  <Card title="Invite Team Members" icon="user-plus" href="/dashboard/members">
+    Add your colleagues to the organization
+  </Card>
+</CardGroup>

@@ -1,0 +1,214 @@
+---
+title: "Common Errors"
+description: "Troubleshoot common issues in Granite"
+---
+
+## Error Reference
+
+Quick solutions for common errors you might encounter.
+
+## Authentication Errors
+
+<AccordionGroup>
+  <Accordion title="401 Unauthorized">
+    **Message:** "Invalid or missing API key" or "Session expired"
+
+    **Causes:**
+    - API key is invalid or revoked
+    - Session cookie expired
+    - Missing authentication header
+
+    **Solutions:**
+    - Verify API key is correct and active
+    - Log out and log back in
+    - Check the `X-Granite-API-Key` header is set
+  </Accordion>
+
+  <Accordion title="403 Forbidden">
+    **Message:** "Access denied" or "Insufficient permissions"
+
+    **Causes:**
+    - User role doesn't have permission
+    - Trying to access another organization's data
+    - API key lacks required scope
+
+    **Solutions:**
+    - Check your role in the organization
+    - Verify you're in the correct organization
+    - Create an API key with proper permissions
+  </Accordion>
+
+  <Accordion title="Magic link expired">
+    **Message:** "Link expired or already used"
+
+    **Causes:**
+    - Link older than 1 hour
+    - Link was already clicked
+
+    **Solutions:**
+    - Request a new magic link
+    - Use Google OAuth instead
+  </Accordion>
+</AccordionGroup>
+
+## Execution Errors
+
+<AccordionGroup>
+  <Accordion title="No drivers available">
+    **Message:** "No driver machines available"
+
+    **Causes:**
+    - All drivers are offline
+    - All drivers are busy
+    - No drivers enrolled
+
+    **Solutions:**
+    - Check Driver Management for machine status
+    - Wait for a driver to become available
+    - Add more driver machines
+    - [Set up a local driver](/vm-management/local-sandbox-setup)
+  </Accordion>
+
+  <Accordion title="Element not found">
+    **Message:** "Could not locate element: [description]"
+
+    **Causes:**
+    - Application UI changed
+    - Element hasn't loaded yet
+    - Wrong window is focused
+
+    **Solutions:**
+    - Add waits before the action
+    - Update the element locator
+    - Verify the application state
+  </Accordion>
+
+  <Accordion title="Timeout">
+    **Message:** "Action timed out after X seconds"
+
+    **Causes:**
+    - Application is slow/unresponsive
+    - Network latency
+    - Resource exhaustion on driver
+
+    **Solutions:**
+    - Increase timeout settings
+    - Check driver machine resources
+    - Simplify the automation
+  </Accordion>
+
+  <Accordion title="Connection lost">
+    **Message:** "Lost connection to driver"
+
+    **Causes:**
+    - Network interruption
+    - Driver crashed
+    - Machine rebooted
+
+    **Solutions:**
+    - Check driver status
+    - Restart the driver
+    - Review driver logs for crashes
+  </Accordion>
+</AccordionGroup>
+
+## API Errors
+
+<AccordionGroup>
+  <Accordion title="400 Bad Request">
+    **Message:** "Invalid request body" or specific validation error
+
+    **Causes:**
+    - Missing required parameters
+    - Invalid parameter types
+    - Malformed JSON
+
+    **Solutions:**
+    - Check the API documentation for required fields
+    - Verify JSON syntax
+    - Check parameter types match the spec
+  </Accordion>
+
+  <Accordion title="404 Not Found">
+    **Message:** "Resource not found"
+
+    **Causes:**
+    - Wrong endpoint URL
+    - Resource was deleted
+    - Typo in resource ID
+
+    **Solutions:**
+    - Verify the endpoint URL
+    - Check the resource exists
+    - Use the correct ID format
+  </Accordion>
+
+  <Accordion title="429 Rate Limited">
+    **Message:** "Too many requests"
+
+    **Causes:**
+    - Exceeded rate limit
+
+    **Solutions:**
+    - Wait before retrying
+    - Implement exponential backoff
+    - Contact support for higher limits
+  </Accordion>
+
+  <Accordion title="500 Internal Server Error">
+    **Message:** "Internal server error"
+
+    **Causes:**
+    - Backend issue
+
+    **Solutions:**
+    - Retry the request
+    - Check status.getgranite.ai
+    - Contact support if persistent
+  </Accordion>
+</AccordionGroup>
+
+## Video/Streaming Errors
+
+<AccordionGroup>
+  <Accordion title="Video not loading">
+    **Causes:**
+    - WebRTC blocked
+    - Firewall restrictions
+    - Browser compatibility
+
+    **Solutions:**
+    - Allow WebRTC in browser settings
+    - Disable VPN
+    - Try a different browser
+    - Check firewall allows UDP traffic
+  </Accordion>
+
+  <Accordion title="Black screen">
+    **Causes:**
+    - Driver initializing
+    - Screen capture failed
+    - No display connected
+
+    **Solutions:**
+    - Wait for driver to fully connect
+    - Check driver has display access
+    - Verify screen capture permissions
+  </Accordion>
+</AccordionGroup>
+
+## Getting More Help
+
+If you can't resolve an issue:
+
+1. Check the [FAQ](/troubleshooting/faq)
+2. Search the documentation
+3. Contact support with:
+   - Error message
+   - Steps to reproduce
+   - Run ID (if applicable)
+   - Screenshots
+
+<Card title="Contact Support" icon="headset" href="mailto:support@getgranite.ai">
+  Get help from our team
+</Card>

@@ -1,0 +1,176 @@
+---
+title: "Creating Endpoints"
+description: "Set up public API endpoints for your automations"
+---
+
+## What is an Endpoint?
+
+An endpoint is a public URL that triggers an automation. Anyone with the URL and an API key can run your automation.
+
+## Creating an Endpoint
+
+<Steps>
+  <Step title="Go to API Endpoints">
+    Navigate to **API Endpoints** in the dashboard sidebar
+  </Step>
+
+  <Step title="Click Create">
+    Click the **+ Create Endpoint** button
+  </Step>
+
+  <Step title="Configure Endpoint">
+    | Field | Description | Example |
+    |-------|-------------|---------|
+    | **Name** | Human-readable name | "Generate Monthly Report" |
+    | **Slug** | URL path | `generate-report` |
+    | **Process** | Which process to run | Select from dropdown |
+    | **Method** | HTTP method | POST (recommended) |
+  </Step>
+
+  <Step title="Save">
+    Click **Create**
+
+    Your endpoint is now live!
+  </Step>
+</Steps>
+
+## Endpoint URL
+
+Your endpoint URL follows this pattern:
+
+```
+https://api.getgranite.ai/api/{org-slug}/{endpoint-slug}
+```
+
+Example:
+```
+https://api.getgranite.ai/api/acme-corp/generate-report
+```
+
+## Defining Parameters
+
+Endpoints can accept parameters. Define them in the endpoint configuration:
+
+```json
+{
+  "parameters": {
+    "month": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "number",
+      "required": true
+    },
+    "format": {
+      "type": "string",
+      "default": "pdf"
+    }
+  }
+}
+```
+
+Callers pass parameters in the request body:
+
+```bash
+curl -X POST "https://api.getgranite.ai/api/acme-corp/generate-report" \
+  -H "X-Granite-API-Key: gk_live_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "month": "January",
+    "year": 2024,
+    "format": "pdf"
+  }'
+```
+
+## Endpoint Settings
+
+| Setting | Description |
+|---------|-------------|
+| **Enabled** | Toggle endpoint on/off |
+| **Rate Limit** | Max requests per minute |
+| **Timeout** | Max wait time (for sync calls) |
+| **HITL Mode** | Require human approval? |
+
+## HITL for API Endpoints
+
+<Warning>
+  API endpoints typically run without HITL for full automation. Be careful what you expose.
+</Warning>
+
+Options:
+
+| Mode | Behavior |
+|------|----------|
+| **None** | Fully automated, no pauses |
+| **Sensitive** | Pauses on risky actions |
+| **All** | Pauses on every action |
+
+## Testing Endpoints
+
+Test directly from the dashboard:
+
+1. Open the endpoint details
+2. Fill in test parameters
+3. Click **Test**
+4. View the response
+
+## Editing Endpoints
+
+To modify an endpoint:
+
+1. Go to API Endpoints
+2. Click the endpoint name
+3. Click **Edit**
+4. Make changes
+5. Click **Save**
+
+<Note>
+  Changing the slug creates a new URL. Old URLs will stop working.
+</Note>
+
+## Deleting Endpoints
+
+To remove an endpoint:
+
+1. Go to API Endpoints
+2. Click the **...** menu
+3. Select **Delete**
+4. Confirm
+
+<Warning>
+  Deletion is immediate. Any systems using the endpoint will fail.
+</Warning>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use descriptive slugs">
+    Good: `generate-monthly-sales-report`
+    Bad: `endpoint1`
+  </Accordion>
+
+  <Accordion title="Version your endpoints">
+    If you might change behavior, include version:
+    `v1-generate-report`, `v2-generate-report`
+  </Accordion>
+
+  <Accordion title="Document parameters">
+    Add descriptions to each parameter so users know what to pass.
+  </Accordion>
+
+  <Accordion title="Test before publishing">
+    Thoroughly test endpoints before giving out the URL.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Keys" icon="key" href="/public-api/api-keys">
+    Create authentication keys
+  </Card>
+  <Card title="Invoking" icon="bolt" href="/public-api/invoking-automations">
+    Call your endpoints
+  </Card>
+</CardGroup>

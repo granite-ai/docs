@@ -1,0 +1,226 @@
+---
+title: "Analytics"
+description: "Monitor your automation performance with customizable dashboards"
+---
+
+## Analytics Dashboard
+
+The Analytics page gives you deep insights into your automation performance.
+
+<Frame>
+  <img src="/images/dashboard/analytics.png" alt="Analytics Dashboard" />
+</Frame>
+
+## Dashboard Overview
+
+Your analytics dashboard shows:
+
+- **Summary stats** - Key metrics at a glance
+- **Charts** - Visual trends over time
+- **Tables** - Detailed breakdowns
+- **Filters** - Narrow down by date, process, status
+
+## Key Metrics
+
+<CardGroup cols={4}>
+  <Card title="Total Executions" icon="play">
+    Number of automation runs
+  </Card>
+  <Card title="Success Rate" icon="check">
+    Percentage that completed successfully
+  </Card>
+  <Card title="Avg Duration" icon="clock">
+    Average execution time
+  </Card>
+  <Card title="Active Today" icon="bolt">
+    Runs in the last 24 hours
+  </Card>
+</CardGroup>
+
+## Available Widgets
+
+<Tabs>
+  <Tab title="Executions Over Time">
+    Line chart showing execution volume by day/week/month.
+
+    **Use it to:**
+    - Spot usage trends
+    - Identify peak periods
+    - Track adoption over time
+  </Tab>
+
+  <Tab title="Success Rate">
+    Line/area chart of success percentage over time.
+
+    **Use it to:**
+    - Monitor reliability
+    - Catch degradation early
+    - Track improvements
+  </Tab>
+
+  <Tab title="Failure Breakdown">
+    Pie or bar chart of failure categories.
+
+    **Use it to:**
+    - Identify common failure types
+    - Prioritize fixes
+    - Understand root causes
+  </Tab>
+
+  <Tab title="Duration Distribution">
+    Histogram of execution durations.
+
+    **Use it to:**
+    - Find slow outliers
+    - Understand typical performance
+    - Set expectations
+  </Tab>
+
+  <Tab title="Top Automations">
+    Table of most-run processes.
+
+    **Use it to:**
+    - See what's popular
+    - Prioritize optimization
+    - Track usage patterns
+  </Tab>
+</Tabs>
+
+## More Widgets
+
+| Widget | Description |
+|--------|-------------|
+| **Trigger Distribution** | Breakdown by trigger type (manual, API, scheduled) |
+| **Recent Failures** | Table of recent failed executions |
+| **Actions Per Workflow** | Average number of steps per process |
+| **Endpoint Usage** | API call volume by endpoint |
+| **Queue Metrics** | Wait times and queue depth |
+| **Workflow Complexity** | Steps vs. success correlation |
+
+## Filters
+
+Narrow your analytics view:
+
+| Filter | Options |
+|--------|---------|
+| **Date Range** | Last 7 days, 30 days, 90 days, custom |
+| **Granularity** | Hourly, daily, weekly, monthly |
+| **Process** | All or specific process |
+| **Trigger Type** | Manual, API, scheduled |
+| **Status** | All, success, failed |
+
+## Customizing the Dashboard
+
+Arrange widgets to your preference:
+
+<Steps>
+  <Step title="Enter Edit Mode">
+    Click **Customize** in the top right
+  </Step>
+
+  <Step title="Drag and Drop">
+    Move widgets to rearrange them
+  </Step>
+
+  <Step title="Add/Remove Widgets">
+    Click **+** to add new widgets or **×** to remove
+  </Step>
+
+  <Step title="Save Layout">
+    Click **Save** to keep your arrangement
+  </Step>
+</Steps>
+
+<Tip>
+  Your dashboard layout is saved per-user. Team members can have their own arrangements.
+</Tip>
+
+## Understanding the Data
+
+### Execution Metrics
+
+| Metric | Definition |
+|--------|------------|
+| **Total Executions** | Count of all runs (successful + failed + cancelled) |
+| **Success Rate** | (Successful / Total) × 100 |
+| **Failure Rate** | (Failed / Total) × 100 |
+| **Avg Duration** | Mean execution time across all runs |
+| **P95 Duration** | 95th percentile execution time |
+
+### Failure Categories
+
+| Category | Description |
+|----------|-------------|
+| **Element Not Found** | UI element couldn't be located |
+| **Timeout** | Action exceeded time limit |
+| **Connection Lost** | Driver disconnected |
+| **User Cancelled** | Manually stopped |
+| **Script Error** | RPA code exception |
+| **Unknown** | Unclassified error |
+
+## Interpreting Charts
+
+### Healthy Patterns
+
+- **Steady or increasing success rate** - Things are working well
+- **Consistent execution times** - Predictable performance
+- **Spread of trigger types** - Good adoption
+
+### Warning Signs
+
+- **Declining success rate** - Something's breaking
+- **Increasing durations** - Performance degradation
+- **Spike in failures** - Recent change caused issues
+
+## Exporting Analytics
+
+Export data for external analysis:
+
+1. Click **Export** in the top right
+2. Choose format: CSV or JSON
+3. Select date range
+4. Download
+
+### API Access
+
+You can also fetch analytics via API:
+
+```bash
+curl "https://api.getgranite.ai/api/analytics/batch" \
+  -H "Authorization: Bearer your-token" \
+  -H "Content-Type: application/json" \
+  -d '{"timeRange": "7d", "granularity": "daily"}'
+```
+
+See the [API Reference](/api-reference/overview) for details.
+
+## Analytics Tips
+
+<AccordionGroup>
+  <Accordion title="Check analytics regularly">
+    Make it a habit to review analytics weekly. Catch issues before they become problems.
+  </Accordion>
+
+  <Accordion title="Set baseline expectations">
+    Know what "normal" looks like for your automations. Then you'll notice when things change.
+  </Accordion>
+
+  <Accordion title="Drill into failures">
+    Don't just note that failures increased. Click through to the actual failed runs and understand why.
+  </Accordion>
+
+  <Accordion title="Compare periods">
+    Use date range filters to compare this week vs. last week, or this month vs. last month.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Run Logs" icon="list" href="/dashboard/run-logs">
+    See individual executions
+  </Card>
+  <Card title="Troubleshooting" icon="bug" href="/troubleshooting/common-errors">
+    Fix common issues
+  </Card>
+</CardGroup>
