@@ -72,15 +72,6 @@
             ]
           },
           {
-            "group": "Authentication",
-            "pages": [
-              "authentication/overview",
-              "authentication/magic-link",
-              "authentication/oauth",
-              "authentication/organizations"
-            ]
-          },
-          {
             "group": "Agent Execution",
             "pages": [
               "agent-execution/overview",
@@ -139,19 +130,6 @@
             "group": "API Reference",
             "pages": [
               "api-reference/overview"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "SDK",
-        "groups": [
-          {
-            "group": "TypeScript SDK",
-            "pages": [
-              "typescript-sdk/overview",
-              "typescript-sdk/installation",
-              "typescript-sdk/examples"
             ]
           }
         ]
