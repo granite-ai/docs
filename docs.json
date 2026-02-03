@@ -76,7 +76,6 @@
             "pages": [
               "agent-execution/overview",
               "agent-execution/hitl-workflows",
-              "agent-execution/live-video",
               "agent-execution/recordings"
             ]
           },
