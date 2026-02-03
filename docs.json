@@ -83,8 +83,7 @@
             "group": "RPA Automation",
             "pages": [
               "rpa-automation/overview",
-              "rpa-automation/creating-scripts",
-              "rpa-automation/script-template"
+              "rpa-automation/creating-scripts"
             ]
           },
           {
