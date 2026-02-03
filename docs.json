@@ -127,9 +127,223 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Reference",
+            "group": "Overview",
             "pages": [
               "api-reference/overview"
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "api-reference/agent/run",
+              "api-reference/agent/get-run",
+              "api-reference/agent/get-trace",
+              "api-reference/agent/list-runs",
+              "api-reference/agent/cancel",
+              "api-reference/agent/submit-hitl",
+              "api-reference/agent/hitl-status"
+            ]
+          },
+          {
+            "group": "Agent Runs",
+            "pages": [
+              "api-reference/agent-runs/create",
+              "api-reference/agent-runs/get"
+            ]
+          },
+          {
+            "group": "RPA Automation",
+            "pages": [
+              "api-reference/rpa-automation/upload",
+              "api-reference/rpa-automation/run",
+              "api-reference/rpa-automation/get-run",
+              "api-reference/rpa-automation/get-logs",
+              "api-reference/rpa-automation/list"
+            ]
+          },
+          {
+            "group": "Automations",
+            "pages": [
+              "api-reference/automations/list",
+              "api-reference/automations/get",
+              "api-reference/automations/update",
+              "api-reference/automations/delete",
+              "api-reference/automations/delete-all",
+              "api-reference/automations/edit-text"
+            ]
+          },
+          {
+            "group": "Automation Execution",
+            "pages": [
+              "api-reference/automation-execution/execute",
+              "api-reference/automation-execution/list",
+              "api-reference/automation-execution/list-history",
+              "api-reference/automation-execution/get-info",
+              "api-reference/automation-execution/get-details",
+              "api-reference/automation-execution/clear-logs"
+            ]
+          },
+          {
+            "group": "Organization Automations",
+            "pages": [
+              "api-reference/organization-automations/list-keys",
+              "api-reference/organization-automations/create-key",
+              "api-reference/organization-automations/revoke-key",
+              "api-reference/organization-automations/list-endpoints",
+              "api-reference/organization-automations/create-endpoint",
+              "api-reference/organization-automations/get-endpoint",
+              "api-reference/organization-automations/update-endpoint",
+              "api-reference/organization-automations/delete-endpoint"
+            ]
+          },
+          {
+            "group": "Organization Endpoints",
+            "pages": [
+              "api-reference/organization-endpoints/invoke",
+              "api-reference/organization-endpoints/invoke-post",
+              "api-reference/organization-endpoints/invoke-put",
+              "api-reference/organization-endpoints/invoke-patch",
+              "api-reference/organization-endpoints/invoke-delete"
+            ]
+          },
+          {
+            "group": "Organizations",
+            "pages": [
+              "api-reference/organizations/list-members",
+              "api-reference/organizations/invite",
+              "api-reference/organizations/update-role",
+              "api-reference/organizations/remove-member"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "api-reference/analytics/batch",
+              "api-reference/analytics/status",
+              "api-reference/analytics/summary",
+              "api-reference/analytics/get-layout",
+              "api-reference/analytics/update-layout",
+              "api-reference/analytics/workflow-names",
+              "api-reference/analytics/executions-time",
+              "api-reference/analytics/success-rate",
+              "api-reference/analytics/failures",
+              "api-reference/analytics/durations",
+              "api-reference/analytics/action-counts",
+              "api-reference/analytics/top-automations",
+              "api-reference/analytics/triggers",
+              "api-reference/analytics/recent-failures",
+              "api-reference/analytics/endpoint-usage",
+              "api-reference/analytics/queue-wait",
+              "api-reference/analytics/complexity"
+            ]
+          },
+          {
+            "group": "Driver",
+            "pages": [
+              "api-reference/driver/register",
+              "api-reference/driver/list",
+              "api-reference/driver/register-rdp"
+            ]
+          },
+          {
+            "group": "Driver Enrollment",
+            "pages": [
+              "api-reference/driver-enrollment/enroll"
+            ]
+          },
+          {
+            "group": "Enrollment",
+            "pages": [
+              "api-reference/enrollment/list",
+              "api-reference/enrollment/create",
+              "api-reference/enrollment/revoke"
+            ]
+          },
+          {
+            "group": "VM API Keys",
+            "pages": [
+              "api-reference/vm-api-keys/list",
+              "api-reference/vm-api-keys/create",
+              "api-reference/vm-api-keys/delete",
+              "api-reference/vm-api-keys/machines"
+            ]
+          },
+          {
+            "group": "MIG (VM Management)",
+            "pages": [
+              "api-reference/mig/create-vm",
+              "api-reference/mig/vm-status",
+              "api-reference/mig/finalize",
+              "api-reference/mig/resume-vm",
+              "api-reference/mig/update-activity",
+              "api-reference/mig/delete-vm",
+              "api-reference/mig/suspend-idle",
+              "api-reference/mig/get",
+              "api-reference/mig/create-instance",
+              "api-reference/mig/delete-instance",
+              "api-reference/mig/instance-details",
+              "api-reference/mig/suspend-instance",
+              "api-reference/mig/resume-instance",
+              "api-reference/mig/list-instances",
+              "api-reference/mig/sync-status",
+              "api-reference/mig/update-template"
+            ]
+          },
+          {
+            "group": "Jobs",
+            "pages": [
+              "api-reference/jobs/list",
+              "api-reference/jobs/create",
+              "api-reference/jobs/get"
+            ]
+          },
+          {
+            "group": "Driver Queue",
+            "pages": [
+              "api-reference/driver-queue/status"
+            ]
+          },
+          {
+            "group": "Onboarding",
+            "pages": [
+              "api-reference/onboarding/progress",
+              "api-reference/onboarding/machine-types",
+              "api-reference/onboarding/dismiss",
+              "api-reference/onboarding/select-type",
+              "api-reference/onboarding/complete"
+            ]
+          },
+          {
+            "group": "Screenshots",
+            "pages": [
+              "api-reference/screenshots/upload"
+            ]
+          },
+          {
+            "group": "Recordings",
+            "pages": [
+              "api-reference/recordings/upload",
+              "api-reference/recordings/get"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "api-reference/authentication/login",
+              "api-reference/authentication/authenticate",
+              "api-reference/authentication/logout",
+              "api-reference/authentication/me",
+              "api-reference/authentication/discovered-orgs",
+              "api-reference/authentication/create-org",
+              "api-reference/authentication/switch-org",
+              "api-reference/authentication/list-orgs"
+            ]
+          },
+          {
+            "group": "Health",
+            "pages": [
+              "api-reference/health/check",
+              "api-reference/health/status"
             ]
           }
         ]
